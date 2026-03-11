@@ -1,0 +1,262 @@
+<div class="calculator">
+  <div class="calculator__container">
+    
+    <!-- Header con título y descripción -->
+    <header class="calculator__header">
+      <h1 class="calculator__title">🎴 Calculadora de Probabilidades Digimon TCG</h1>
+      <p class="calculator__description">
+        Calcula las probabilidades de encontrar cartas específicas durante efectos de búsqueda usando distribución hipergeométrica
+      </p>
+    </header>
+
+    <!-- Panel principal: Inputs y Resultados lado a lado en desktop -->
+    <div class="calculator__main">
+      
+      <!-- Sección de Inputs (Izquierda) -->
+      <section class="calculator__inputs">
+        <div class="inputs__card">
+          <h2 class="inputs__title">Parámetros de Entrada</h2>
+          
+          <form [formGroup]="calculatorForm" (ngSubmit)="calculate()" class="inputs__form">
+            
+            <!-- 1. Tipo de búsqueda (B1) -->
+            <div class="form__group">
+              <label for="searchType" class="form__label">
+                <span class="form__label-text">Tipo de búsqueda</span>
+                <span class="form__label-icon">🔍</span>
+              </label>
+              <select 
+                id="searchType" 
+                formControlName="searchType" 
+                class="form__select"
+                [class.form__select--invalid]="isFieldInvalid('searchType')"
+              >
+                <option *ngFor="let type of searchTypes" [value]="type">{{ type }}</option>
+              </select>
+              <small class="form__hint">{{ getCurrentConfig().description }}</small>
+            </div>
+
+            <!-- 2. Valor personalizado (B2) - Solo visible si es Custom -->
+            <div class="form__group" *ngIf="isCustomType()">
+              <label for="customValue" class="form__label">
+                <span class="form__label-text">Número de cartas a revelar</span>
+                <span class="form__label-icon">🎲</span>
+              </label>
+              <select 
+                id="customValue" 
+                formControlName="customValue" 
+                class="form__select"
+              >
+                <option *ngFor="let val of customValues" [value]="val">{{ val }}</option>
+              </select>
+            </div>
+
+            <!-- 3. Total de cartas en mazo (B3) -->
+            <div class="form__group">
+              <label for="totalCardsInDeck" class="form__label">
+                <span class="form__label-text">Total de cartas en mazo</span>
+                <span class="form__label-icon">📚</span>
+              </label>
+              <input 
+                type="number" 
+                id="totalCardsInDeck" 
+                formControlName="totalCardsInDeck"
+                class="form__input"
+                [class.form__input--invalid]="isFieldInvalid('totalCardsInDeck')"
+                min="1"
+                max="100"
+                placeholder="45"
+              />
+              <small class="form__hint">Cartas totales disponibles + Securities desconocidas</small>
+              <small class="form__error" *ngIf="isFieldInvalid('totalCardsInDeck')">
+                {{ getFieldError('totalCardsInDeck') }}
+              </small>
+            </div>
+
+            <!-- 4. Cartas tipo 1 (B4) -->
+            <div class="form__group">
+              <label for="type1Cards" class="form__label">
+                <span class="form__label-text">{{ getCurrentConfig().type1Label }}</span>
+                <span class="form__label-icon">🎯</span>
+              </label>
+              <input 
+                type="number" 
+                id="type1Cards" 
+                formControlName="type1Cards"
+                class="form__input"
+                [class.form__input--invalid]="isFieldInvalid('type1Cards')"
+                min="0"
+                placeholder="4"
+              />
+              <small class="form__error" *ngIf="isFieldInvalid('type1Cards')">
+                {{ getFieldError('type1Cards') }}
+              </small>
+            </div>
+
+            <!-- 5. Cartas tipo 2 (B5) - Solo visible si el tipo lo requiere -->
+            <div class="form__group" *ngIf="showType2Input()">
+              <label for="type2Cards" class="form__label">
+                <span class="form__label-text">{{ getCurrentConfig().type2Label }}</span>
+                <span class="form__label-icon">🎯</span>
+              </label>
+              <input 
+                type="number" 
+                id="type2Cards" 
+                formControlName="type2Cards"
+                class="form__input"
+                [class.form__input--invalid]="isFieldInvalid('type2Cards')"
+                min="0"
+                placeholder="10"
+              />
+              <small class="form__hint">Dejar en 0 si no aplica</small>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="form__actions">
+              <button 
+                type="submit" 
+                class="btn btn--primary"
+                [disabled]="calculatorForm.invalid"
+              >
+                <span class="btn__icon">🧮</span>
+                <span class="btn__text">Calcular Probabilidades</span>
+              </button>
+              <button 
+                type="button" 
+                class="btn btn--secondary"
+                (click)="reset()"
+              >
+                <span class="btn__icon">🔄</span>
+                <span class="btn__text">Resetear</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </section>
+
+      <!-- Sección de Resultados (Derecha) -->
+      <section class="calculator__results">
+        
+        <!-- Estado vacío -->
+        <div class="results__empty" *ngIf="!result">
+          <div class="empty__icon">📊</div>
+          <h3 class="empty__title">Sin resultados aún</h3>
+          <p class="empty__text">
+            Configura los parámetros a la izquierda y presiona "Calcular Probabilidades" para ver los resultados
+          </p>
+        </div>
+
+        <!-- Resultados calculados -->
+        <div class="results__content" *ngIf="result">
+          
+          <!-- Header de resultados -->
+          <div class="results__header">
+            <h2 class="results__title">Resultados del Cálculo</h2>
+            <div class="results__meta">
+              <span class="meta__item">
+                <strong>Cartas reveladas (B6):</strong> {{ result.cardsRevealed }}
+              </span>
+              <span class="meta__item">
+                <strong>Total combinaciones (E1):</strong> {{ result.totalCombinations.toLocaleString() }}
+              </span>
+              <span class="meta__item">
+                <strong>Cartas no-objetivo (B8):</strong> {{ result.nonTargetCards }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Probabilidad principal: Hit Tipo 1 (B10) -->
+          <div class="result-card result-card--primary" [class]="'result-card--' + getColorClass(result.hitType1)">
+            <div class="result-card__header">
+              <h3 class="result-card__title">{{ getCurrentConfig().type1Label }}</h3>
+              <span class="result-card__badge">Hit Tipo 1</span>
+            </div>
+            <div class="result-card__body">
+              <div class="result-card__percentage">{{ formatPercentage(result.hitType1) }}</div>
+              <div class="result-card__bar">
+                <div 
+                  class="result-card__bar-fill" 
+                  [style.width.%]="result.hitType1 * 100"
+                ></div>
+              </div>
+              <p class="result-card__fraction">
+                ~{{ getExpectedAttempts(result.hitType1) }} de cada 100 intentos
+              </p>
+            </div>
+          </div>
+
+          <!-- Hit Tipo 2 (B11) - Solo si aplica -->
+          <div 
+            class="result-card" 
+            *ngIf="result.hitType2 !== undefined"
+            [class]="'result-card--' + getColorClass(result.hitType2)"
+          >
+            <div class="result-card__header">
+              <h3 class="result-card__title">{{ getCurrentConfig().type2Label }}</h3>
+              <span class="result-card__badge">Hit Tipo 2</span>
+            </div>
+            <div class="result-card__body">
+              <div class="result-card__percentage">{{ formatPercentage(result.hitType2) }}</div>
+              <div class="result-card__bar">
+                <div 
+                  class="result-card__bar-fill" 
+                  [style.width.%]="result.hitType2 * 100"
+                ></div>
+              </div>
+              <p class="result-card__fraction">
+                ~{{ getExpectedAttempts(result.hitType2) }} de cada 100 intentos
+              </p>
+            </div>
+          </div>
+
+          <!-- Doble Hit (B12) - Solo si aplica -->
+          <div 
+            class="result-card result-card--special" 
+            *ngIf="result.doubleHit !== undefined"
+            [class]="'result-card--' + getColorClass(result.doubleHit)"
+          >
+            <div class="result-card__header">
+              <h3 class="result-card__title">Al menos 1 de cada tipo</h3>
+              <span class="result-card__badge result-card__badge--special">Doble Hit</span>
+            </div>
+            <div class="result-card__body">
+              <div class="result-card__percentage">{{ formatPercentage(result.doubleHit) }}</div>
+              <div class="result-card__bar">
+                <div 
+                  class="result-card__bar-fill" 
+                  [style.width.%]="result.doubleHit * 100"
+                ></div>
+              </div>
+              <p class="result-card__fraction">
+                ~{{ getExpectedAttempts(result.doubleHit) }} de cada 100 intentos
+              </p>
+            </div>
+          </div>
+
+          <!-- Información adicional -->
+          <div class="results__info">
+            <h4 class="info__title">ℹ️ Interpretación</h4>
+            <ul class="info__list">
+              <li><strong>Alta probabilidad (>70%):</strong> Muy probable que encuentres la carta</li>
+              <li><strong>Probabilidad media (40-70%):</strong> Chances razonables</li>
+              <li><strong>Baja probabilidad (<40%):</strong> Poco probable, considera alternativas</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Footer con información técnica -->
+    <footer class="calculator__footer">
+      <p class="footer__text">
+        <strong>Método:</strong> Distribución Hipergeométrica | 
+        <strong>Fórmula:</strong> P(≥1) = 1 - C(N-K, n) / C(N, n) |
+        <strong>Basado en:</strong> Calculadora Excel oficial
+      </p>
+    </footer>
+
+  </div>
+</div>

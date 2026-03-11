@@ -1,9 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
+import { CalculatorComponent } from './components/calculator/calculator.component';
 
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent]
+    declarations: [AppComponent, CalculatorComponent],
+    imports: [ReactiveFormsModule]
   }));
 
   it('should create the app', () => {
@@ -12,16 +15,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'digimon-tcg-probability'`, () => {
+  it('should have the correct title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('digimon-tcg-probability');
+    expect(app.title).toEqual('Digimon TCG - Calculadora de Probabilidades');
   });
 
-  it('should render title', () => {
+  it('should render calculator component', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('digimon-tcg-probability app is running!');
+    expect(compiled.querySelector('app-calculator')).toBeTruthy();
   });
 });
