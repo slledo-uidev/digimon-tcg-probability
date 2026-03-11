@@ -1,0 +1,110 @@
+<div class="deck-configuration">
+  <h2 class="deck-configuration__title">Configuración del Mazo</h2>
+  
+  <div class="deck-configuration__summary">
+    <p class="deck-configuration__card-count">
+      Total de cartas: 
+      <strong [class.deck-configuration__card-count--valid]="isValidDeckSize">
+        {{ totalCards }}
+      </strong> 
+      / 50
+    </p>
+    <p class="deck-configuration__remaining" *ngIf="deckState">
+      Cartas restantes: <strong>{{ deckState.cardsRemaining }}</strong>
+    </p>
+  </div>
+
+  <form [formGroup]="cardForm" (ngSubmit)="addCard()" class="deck-configuration__form">
+    <div class="deck-configuration__form-group">
+      <label class="deck-configuration__label" for="name">Nombre de la carta</label>
+      <input 
+        class="deck-configuration__input" 
+        id="name" 
+        type="text" 
+        formControlName="name" 
+        placeholder="Ej: Agumon"
+      />
+    </div>
+
+    <div class="deck-configuration__form-group">
+      <label class="deck-configuration__label" for="quantity">Cantidad</label>
+      <input 
+        class="deck-configuration__input deck-configuration__input--number" 
+        id="quantity" 
+        type="number" 
+        formControlName="quantity" 
+        min="1" 
+        max="4"
+      />
+    </div>
+
+    <div class="deck-configuration__form-group">
+      <label class="deck-configuration__label" for="color">Color</label>
+      <select class="deck-configuration__select" id="color" formControlName="color">
+        <option value="">Sin especificar</option>
+        <option *ngFor="let color of availableColors" [value]="color">{{ color }}</option>
+      </select>
+    </div>
+
+    <div class="deck-configuration__form-group">
+      <label class="deck-configuration__label" for="type">Tipo</label>
+      <select class="deck-configuration__select" id="type" formControlName="type">
+        <option value="">Sin especificar</option>
+        <option *ngFor="let type of availableTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+
+    <button 
+      class="deck-configuration__button deck-configuration__button--add" 
+      type="submit"
+      [disabled]="!cardForm.valid"
+    >
+      Agregar Carta
+    </button>
+  </form>
+
+  <div class="deck-configuration__actions">
+    <button 
+      class="deck-configuration__button deck-configuration__button--reset" 
+      (click)="resetDeck()"
+      [disabled]="!deckState || deckState.cards.length === 0"
+    >
+      Resetear Mazo
+    </button>
+    <button 
+      class="deck-configuration__button deck-configuration__button--clear" 
+      (click)="clearDeck()"
+      [disabled]="!deckState || deckState.cards.length === 0"
+    >
+      Limpiar Mazo
+    </button>
+  </div>
+
+  <div class="deck-configuration__card-list" *ngIf="deckState && deckState.cards.length > 0">
+    <h3 class="deck-configuration__subtitle">Cartas en el Mazo</h3>
+    <div class="deck-configuration__card" *ngFor="let card of deckState.cards">
+      <div class="deck-configuration__card-info">
+        <span class="deck-configuration__card-name">{{ card.name }}</span>
+        <span class="deck-configuration__card-quantity">x{{ card.quantity }}</span>
+        <span class="deck-configuration__card-categories">
+          <span *ngIf="card.categories.color" class="deck-configuration__card-tag">
+            {{ card.categories.color }}
+          </span>
+          <span *ngIf="card.categories.type" class="deck-configuration__card-tag">
+            {{ card.categories.type }}
+          </span>
+        </span>
+      </div>
+      <button 
+        class="deck-configuration__button deck-configuration__button--delete" 
+        (click)="deleteCard(card.id)"
+      >
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <div class="deck-configuration__empty" *ngIf="!deckState || deckState.cards.length === 0">
+    <p>No hay cartas en el mazo. Agrega cartas usando el formulario.</p>
+  </div>
+</div>

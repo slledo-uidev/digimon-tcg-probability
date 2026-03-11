@@ -1,0 +1,86 @@
+<div class="card-tracker">
+  <h2 class="card-tracker__title">Seguimiento de Cartas</h2>
+
+  <div class="card-tracker__counter" *ngIf="deckState">
+    <div class="card-tracker__counter-circle">
+      <span class="card-tracker__counter-number">{{ deckState.cardsRemaining }}</span>
+      <span class="card-tracker__counter-label">Cartas</span>
+    </div>
+  </div>
+
+  <div class="card-tracker__undo" *ngIf="canUndo">
+    <button 
+      class="card-tracker__button card-tracker__button--undo" 
+      (click)="undoLastRemoval()"
+    >
+      ↶ Deshacer última acción
+    </button>
+  </div>
+
+  <div class="card-tracker__categories" *ngIf="deckState && deckState.cards.length > 0">
+    <h3 class="card-tracker__subtitle">Por Color</h3>
+    <div class="card-tracker__color-list">
+      <div 
+        class="card-tracker__color-item" 
+        *ngFor="let color of availableColors"
+      >
+        <span class="card-tracker__color-name">{{ color }}</span>
+        <span class="card-tracker__color-count">{{ getColorCount(color) }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-tracker__cards" *ngIf="deckState && deckState.cards.length > 0">
+    <h3 class="card-tracker__subtitle">Cartas Disponibles</h3>
+    <div class="card-tracker__card-list">
+      <div 
+        class="card-tracker__card" 
+        *ngFor="let card of deckState.cards"
+        [class.card-tracker__card--depleted]="card.remaining === 0"
+      >
+        <div class="card-tracker__card-info">
+          <span class="card-tracker__card-name">{{ card.name }}</span>
+          <span class="card-tracker__card-remaining">
+            {{ card.remaining }} / {{ card.quantity }}
+          </span>
+        </div>
+        <div class="card-tracker__card-actions">
+          <button 
+            class="card-tracker__button card-tracker__button--remove" 
+            (click)="removeCard(card.id)"
+            [disabled]="card.remaining === 0"
+            title="Remover 1 carta"
+          >
+            -
+          </button>
+          <button 
+            class="card-tracker__button card-tracker__button--restore" 
+            (click)="restoreCard(card.id)"
+            [disabled]="card.remaining === card.quantity"
+            title="Restaurar 1 carta"
+          >
+            +
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-tracker__empty" *ngIf="!deckState || deckState.cards.length === 0">
+    <p>No hay cartas en el mazo para rastrear.</p>
+    <p>Configura tu mazo primero.</p>
+  </div>
+
+  <div class="card-tracker__history" *ngIf="deckState && deckState.removedCards.length > 0">
+    <h3 class="card-tracker__subtitle">Historial de Remociones</h3>
+    <div class="card-tracker__history-list">
+      <div 
+        class="card-tracker__history-item" 
+        *ngFor="let removal of deckState.removedCards.slice().reverse().slice(0, 5)"
+      >
+        <span class="card-tracker__history-name">{{ removal.cardName }}</span>
+        <span class="card-tracker__history-quantity">x{{ removal.quantity }}</span>
+      </div>
+    </div>
+  </div>
+</div>

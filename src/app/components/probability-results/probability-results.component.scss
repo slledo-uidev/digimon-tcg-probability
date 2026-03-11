@@ -1,0 +1,202 @@
+.probability-results {
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+  }
+
+  &__subtitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #34495e;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__summary {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 6px;
+    border-left: 4px solid #3498db;
+  }
+
+  &__method {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__method-label {
+    font-weight: 600;
+    color: #7f8c8d;
+  }
+
+  &__method-value {
+    font-weight: bold;
+    color: #3498db;
+    font-size: 1.1rem;
+  }
+
+  &__description {
+    color: #2c3e50;
+    margin: 0.5rem 0 1rem 0;
+    font-size: 1rem;
+  }
+
+  &__deck-info {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+    color: #7f8c8d;
+
+    span {
+      strong {
+        color: #2c3e50;
+      }
+    }
+  }
+
+  &__main {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  }
+
+  &__highlight {
+    text-align: center;
+    color: white;
+    margin-bottom: 1rem;
+  }
+
+  &__percentage {
+    font-size: 4rem;
+    font-weight: bold;
+    line-height: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &__label {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    opacity: 0.95;
+  }
+
+  &__progress {
+    width: 100%;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &__progress-bar {
+    height: 100%;
+    transition: width 0.8s ease, background-color 0.8s ease;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  &__breakdown {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 6px;
+  }
+
+  &__breakdown-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__breakdown-item {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 4px;
+  }
+
+  &__breakdown-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  &__breakdown-description {
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  &__breakdown-percentage {
+    font-weight: bold;
+    color: #3498db;
+    font-size: 1.1rem;
+  }
+
+  &__breakdown-bar {
+    width: 100%;
+    height: 12px;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  &__breakdown-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
+    transition: width 0.6s ease;
+    border-radius: 6px;
+  }
+
+  &__fraction {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 6px;
+    text-align: center;
+
+    p {
+      margin: 0 0 0.5rem 0;
+      color: #7f8c8d;
+      font-size: 0.95rem;
+    }
+  }
+
+  &__fraction-display {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+
+  &__empty {
+    background-color: #ffffff;
+    padding: 4rem 2rem;
+    border-radius: 6px;
+    text-align: center;
+
+    p {
+      font-size: 1.2rem;
+      color: #7f8c8d;
+      margin: 0;
+    }
+  }
+}

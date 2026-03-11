@@ -1,0 +1,211 @@
+.deck-configuration {
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+  }
+
+  &__subtitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 1.5rem 0 1rem;
+    color: #34495e;
+  }
+
+  &__summary {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #3498db;
+
+    p {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+    }
+  }
+
+  &__card-count {
+    font-size: 1.1rem;
+
+    &--valid {
+      color: #27ae60;
+    }
+  }
+
+  &__remaining {
+    color: #7f8c8d;
+  }
+
+  &__form {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
+
+  &__form-group {
+    margin-bottom: 1rem;
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.9rem;
+  }
+
+  &__input,
+  &__select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+
+    &:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+
+    &--number {
+      width: 100px;
+    }
+  }
+
+  &__select {
+    cursor: pointer;
+  }
+
+  &__button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &--add {
+      width: 100%;
+      background-color: #3498db;
+      color: white;
+      margin-top: 1rem;
+
+      &:hover:not(:disabled) {
+        background-color: #2980b9;
+      }
+    }
+
+    &--reset {
+      background-color: #95a5a6;
+      color: white;
+
+      &:hover:not(:disabled) {
+        background-color: #7f8c8d;
+      }
+    }
+
+    &--clear {
+      background-color: #e74c3c;
+      color: white;
+
+      &:hover:not(:disabled) {
+        background-color: #c0392b;
+      }
+    }
+
+    &--delete {
+      background-color: #e74c3c;
+      color: white;
+      padding: 0.5rem 0.75rem;
+      font-size: 1.2rem;
+      line-height: 1;
+
+      &:hover {
+        background-color: #c0392b;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &__card-list {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 6px;
+  }
+
+  &__card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #3498db;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__card-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+  }
+
+  &__card-name {
+    font-weight: 600;
+    color: #2c3e50;
+    min-width: 150px;
+  }
+
+  &__card-quantity {
+    font-weight: bold;
+    color: #7f8c8d;
+    min-width: 40px;
+  }
+
+  &__card-categories {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &__card-tag {
+    padding: 0.25rem 0.75rem;
+    background-color: #3498db;
+    color: white;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  &__empty {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 6px;
+    text-align: center;
+    color: #7f8c8d;
+  }
+}

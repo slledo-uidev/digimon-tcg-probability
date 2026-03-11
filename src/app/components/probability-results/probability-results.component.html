@@ -1,0 +1,68 @@
+<div class="probability-results">
+  <h2 class="probability-results__title">Resultados</h2>
+
+  <div class="probability-results__content" *ngIf="result; else noResults">
+    <div class="probability-results__summary">
+      <div class="probability-results__method">
+        <span class="probability-results__method-label">Método:</span>
+        <span class="probability-results__method-value">{{ getMethodName(result.searchMethod.type) }}</span>
+      </div>
+      <p class="probability-results__description">{{ getMethodDescription() }}</p>
+      <div class="probability-results__deck-info">
+        <span>🎴 Cartas objetivo: <strong>{{ result.totalTargetCards }}</strong></span>
+        <span>🎴 Tamaño del mazo: <strong>{{ result.deckSize }}</strong></span>
+      </div>
+    </div>
+
+    <div class="probability-results__main">
+      <div class="probability-results__highlight">
+        <div class="probability-results__percentage">
+          {{ (result.probabilities.atLeastOne * 100).toFixed(2) }}%
+        </div>
+        <div class="probability-results__label">Probabilidad de encontrar al menos 1</div>
+      </div>
+
+      <div class="probability-results__progress">
+        <div 
+          class="probability-results__progress-bar" 
+          [style.width]="getProgressBarWidth(result.probabilities.atLeastOne)"
+          [style.background-color]="getProgressBarColor(result.probabilities.atLeastOne)"
+        ></div>
+      </div>
+    </div>
+
+    <div class="probability-results__breakdown">
+      <h3 class="probability-results__subtitle">Desglose Detallado</h3>
+      <div class="probability-results__breakdown-list">
+        <div 
+          class="probability-results__breakdown-item" 
+          *ngFor="let item of result.breakdown"
+        >
+          <div class="probability-results__breakdown-info">
+            <span class="probability-results__breakdown-description">{{ item.description }}</span>
+            <span class="probability-results__breakdown-percentage">{{ item.percentage }}</span>
+          </div>
+          <div class="probability-results__breakdown-bar">
+            <div 
+              class="probability-results__breakdown-bar-fill" 
+              [style.width]="(item.probability * 100) + '%'"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="probability-results__fraction">
+      <p>En una fracción aproximada:</p>
+      <div class="probability-results__fraction-display">
+        ~{{ (result.probabilities.atLeastOne * 100).toFixed(0) }} de cada 100 intentos
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noResults>
+    <div class="probability-results__empty">
+      <p>📊 Configura una búsqueda para ver los resultados</p>
+    </div>
+  </ng-template>
+</div>

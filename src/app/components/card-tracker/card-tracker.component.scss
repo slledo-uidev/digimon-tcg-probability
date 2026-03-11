@@ -1,0 +1,240 @@
+.card-tracker {
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+  }
+
+  &__subtitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 1.5rem 0 1rem;
+    color: #34495e;
+  }
+
+  &__counter {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+
+  &__counter-circle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    color: white;
+  }
+
+  &__counter-number {
+    font-size: 3rem;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  &__counter-label {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+  }
+
+  &__undo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  &__button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &--undo {
+      background-color: #f39c12;
+      color: white;
+
+      &:hover {
+        background-color: #e67e22;
+      }
+    }
+
+    &--remove {
+      background-color: #e74c3c;
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 1.2rem;
+
+      &:hover:not(:disabled) {
+        background-color: #c0392b;
+      }
+    }
+
+    &--restore {
+      background-color: #27ae60;
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 1.2rem;
+
+      &:hover:not(:disabled) {
+        background-color: #229954;
+      }
+    }
+  }
+
+  &__categories {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+  }
+
+  &__color-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
+
+  &__color-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background-color: #ecf0f1;
+    border-radius: 4px;
+    border-left: 4px solid #3498db;
+  }
+
+  &__color-name {
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  &__color-count {
+    font-weight: bold;
+    color: #3498db;
+    font-size: 1.1rem;
+  }
+
+  &__cards {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+  }
+
+  &__card-list {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  &__card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #27ae60;
+    transition: opacity 0.3s;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &--depleted {
+      opacity: 0.4;
+      border-left-color: #95a5a6;
+    }
+  }
+
+  &__card-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+  }
+
+  &__card-name {
+    font-weight: 600;
+    color: #2c3e50;
+    flex: 1;
+  }
+
+  &__card-remaining {
+    font-weight: bold;
+    color: #27ae60;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  &__card-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &__empty {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 6px;
+    text-align: center;
+    color: #7f8c8d;
+
+    p {
+      margin: 0.5rem 0;
+    }
+  }
+
+  &__history {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 6px;
+  }
+
+  &__history-list {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  &__history-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background-color: #ecf0f1;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__history-name {
+    color: #2c3e50;
+  }
+
+  &__history-quantity {
+    font-weight: bold;
+    color: #7f8c8d;
+  }
+}
