@@ -1,0 +1,80 @@
+<section class="calculator-results" id="results-section">
+  
+  <!-- Botón flotante para volver al formulario (solo mobile) -->
+  <button 
+    *ngIf="isMobile && result && !isFormExpanded"
+    type="button"
+    class="fab-recalculate"
+    (click)="onOpenForm()"
+    aria-label="Volver a configurar parámetros"
+  >
+    📝
+  </button>
+  
+  <!-- Estado vacío -->
+  <div class="results__empty" *ngIf="!result">
+    <div class="empty__icon">📊</div>
+    <h3 class="empty__title">Sin resultados aún</h3>
+    <p class="empty__text">
+      Configura los parámetros a la izquierda y presiona "Calcular Probabilidades" para ver los resultados
+    </p>
+  </div>
+
+  <!-- Resultados calculados -->
+  <div class="results__content" *ngIf="result">
+    
+    <!-- Header de resultados -->
+    <div class="results__header">
+      <h2 class="results__title">Resultados del Cálculo</h2>
+      <div class="results__meta">
+        <span class="meta__item">
+          <strong>Cartas reveladas:</strong> {{ result.cardsRevealed }}
+        </span>
+        <span class="meta__item">
+          <strong>Total combinaciones:</strong> {{ result.totalCombinations.toLocaleString() }}
+        </span>
+        <span class="meta__item">
+          <strong>Cartas no-objetivo:</strong> {{ result.nonTargetCards }}
+        </span>
+      </div>
+    </div>
+
+    <div class="result-cards">
+      <!-- Probabilidad principal: Hit Tipo 1 -->
+      <app-result-card
+        [probability]="result.hitType1"
+        [title]="currentConfig.type1Label"
+        badge="Hit Tipo 1"
+        [isPrimary]="true"
+      ></app-result-card>
+
+      <!-- Hit Tipo 2 - Solo si aplica -->
+      <app-result-card
+        *ngIf="result.hitType2 !== undefined"
+        [probability]="result.hitType2"
+        [title]="currentConfig.type2Label || 'Tipo 2'"
+        badge="Hit Tipo 2"
+      ></app-result-card>
+
+      <!-- Doble Hit - Solo si aplica -->
+      <app-result-card
+        *ngIf="result.doubleHit !== undefined"
+        [probability]="result.doubleHit"
+        title="Al menos 1 de cada tipo"
+        badge="Doble Hit"
+        [isPrimary]="true"
+      ></app-result-card>
+    </div>
+
+    <!-- Información adicional -->
+    <div class="results__info">
+      <h4 class="info__title">ℹ️ Interpretación</h4>
+      <ul class="info__list">
+        <li><strong>Alta probabilidad (>70%):</strong> Muy probable que encuentres la carta</li>
+        <li><strong>Probabilidad media (40-70%):</strong> Chances razonables</li>
+        <li><strong>Baja probabilidad (<40%):</strong> Poco probable, considera alternativas</li>
+      </ul>
+    </div>
+
+  </div>
+</section>

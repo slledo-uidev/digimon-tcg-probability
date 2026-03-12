@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CalculatorComponent } from './calculator.component';
-import { CalculatorService } from '../../services/calculator.service';
+import { CalculatorService } from '../../../services/calculator.service';
 
 describe('CalculatorComponent', () => {
   let component: CalculatorComponent;

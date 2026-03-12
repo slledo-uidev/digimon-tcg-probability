@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CalculatorService } from '../../services/calculator.service';
+import { CalculatorService } from '../../../services/calculator.service';
 import { 
   SearchType, 
   CalculatorInput, 
   CalculatorResult,
   SEARCH_TYPE_CONFIGS,
   SearchTypeConfig
-} from '../../models/calculator.model';
+} from '../../../models/calculator.model';
 
 @Component({
   selector: 'app-calculator',
@@ -166,115 +166,11 @@ export class CalculatorComponent implements OnInit {
     return this.getCurrentConfig().showType2;
   }
 
-  formatPercentage(value: number): string {
-    return this.calculatorService.formatPercentage(value);
-  }
-
-  getColorClass(probability: number): string {
-    return this.calculatorService.getColorForProbability(probability);
-  }
-
-  getExpectedAttempts(probability: number): number {
-    return this.calculatorService.calculateExpectedAttempts(probability);
-  }
-
   private markFormGroupTouched(formGroup: FormGroup): void {
     Object.keys(formGroup.controls).forEach(key => {
       const control = formGroup.get(key);
       control?.markAsTouched();
     });
-  }
-
-  // Validación visual para el template
-  isFieldInvalid(fieldName: string): boolean {
-    const field = this.calculatorForm.get(fieldName);
-    return !!(field?.invalid && (field?.dirty || field?.touched));
-  }
-
-  getFieldError(fieldName: string): string {
-    const field = this.calculatorForm.get(fieldName);
-    if (field?.hasError('required')) {
-      return 'Este campo es requerido';
-    }
-    if (field?.hasError('min')) {
-      const min = field.errors?.['min'].min;
-      return `El valor mínimo es ${min}`;
-    }
-    if (field?.hasError('max')) {
-      const max = field.errors?.['max'].max;
-      return `El valor máximo es ${max}`;
-    }
-    return '';
-  }
-
-  // Métodos para botones +/- de inputs numéricos
-  increment(fieldName: string): void {
-    const control = this.calculatorForm.get(fieldName);
-    if (!control) return;
-
-    const currentValue = control.value || 0;
-    const limits = this.getFieldLimits(fieldName);
-    
-    if (currentValue < limits.max) {
-      control.setValue(currentValue + 1);
-      control.markAsDirty();
-    }
-  }
-
-  decrement(fieldName: string): void {
-    const control = this.calculatorForm.get(fieldName);
-    if (!control) return;
-
-    const currentValue = control.value || 0;
-    const limits = this.getFieldLimits(fieldName);
-    
-    if (currentValue > limits.min) {
-      control.setValue(currentValue - 1);
-      control.markAsDirty();
-    }
-  }
-
-  isAtMax(fieldName: string): boolean {
-    const control = this.calculatorForm.get(fieldName);
-    if (!control) return false;
-
-    const currentValue = control.value || 0;
-    const limits = this.getFieldLimits(fieldName);
-    return currentValue >= limits.max;
-  }
-
-  isAtMin(fieldName: string): boolean {
-    const control = this.calculatorForm.get(fieldName);
-    if (!control) return false;
-
-    const currentValue = control.value || 0;
-    const limits = this.getFieldLimits(fieldName);
-    return currentValue <= limits.min;
-  }
-
-  private getFieldLimits(fieldName: string): { min: number; max: number } {
-    const totalCards = this.calculatorForm.get('totalCardsInDeck')?.value || 100;
-    const type1Cards = this.calculatorForm.get('type1Cards')?.value || 0;
-    const type2Cards = this.calculatorForm.get('type2Cards')?.value || 0;
-
-    switch (fieldName) {
-      case 'totalCardsInDeck':
-        return { min: 1, max: 100 };
-      
-      case 'type1Cards':
-        return { min: 0, max: totalCards };
-      
-      case 'type2Cards':
-        return { min: 0, max: totalCards };
-      
-      case 'overlap':
-        // El overlap no puede exceder el mínimo entre type1Cards y type2Cards
-        const maxOverlap = Math.min(type1Cards, type2Cards);
-        return { min: 0, max: maxOverlap };
-      
-      default:
-        return { min: 0, max: 100 };
-    }
   }
 
   // Métodos para mobile: control de formulario colapsable

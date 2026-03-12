@@ -1,0 +1,27 @@
+<div 
+  class="result-card" 
+  [class.result-card--primary]="isPrimary"
+  [ngClass]="'result-card--' + colorClass"
+>
+  <div class="result-card__header">
+    <h3 class="result-card__title">{{ title }}</h3>
+    <span class="result-card__badge" [class.result-card__badge--special]="isPrimary">
+      {{ badge }}
+    </span>
+  </div>
+  
+  <div class="result-card__body">
+    <div class="result-card__percentage">{{ formattedPercentage }}</div>
+    
+    <div class="result-card__bar">
+      <div 
+        class="result-card__bar-fill" 
+        [style.width.%]="percentageWidth"
+      ></div>
+    </div>
+    
+    <p class="result-card__fraction">
+      ~{{ expectedAttempts }} de cada 100 intentos
+    </p>
+  </div>
+</div>

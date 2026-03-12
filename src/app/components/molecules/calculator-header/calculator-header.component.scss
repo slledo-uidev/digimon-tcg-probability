@@ -1,0 +1,37 @@
+@import '../../../scss/d-prob-theme-tokens';
+
+.calculator-header {
+  background: var(--gradient-primary);
+  color: $color-white;
+  padding: $theme-header-padding-y $theme-header-padding-x;
+  border-radius: $theme-radius-lg;
+  margin-bottom: $theme-spacing-8;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+
+  @media (min-width: $theme-breakpoint-md) {
+    padding: $theme-header-padding-y-lg $theme-header-padding-x-lg;
+  }
+
+  &__title {
+    font-size: $theme-font-size-3xl;
+    font-weight: $theme-font-weight-bold;
+    margin: 0 0 $theme-spacing-2 0;
+    text-shadow: 0 2px 4px rgba($color-black, 0.2);
+
+    @media (min-width: $theme-breakpoint-md) {
+      font-size: $theme-font-size-5xl;
+    }
+  }
+
+  &__description {
+    font-size: $theme-font-size-base;
+    margin: 0;
+    opacity: $theme-opacity-95;
+    line-height: $theme-line-height-normal;
+
+    @media (min-width: $theme-breakpoint-md) {
+      font-size: $theme-font-size-lg;
+    }
+  }
+}
