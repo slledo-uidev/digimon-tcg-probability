@@ -111,6 +111,27 @@
               <small class="form__hint">Dejar en 0 si no aplica</small>
             </div>
 
+            <!-- 6. Overlap - Cartas que cumplen AMBAS condiciones (Solo visible si tipo 2 aplica) -->
+            <div class="form__group" *ngIf="showType2Input()">
+              <label for="overlap" class="form__label">
+                <span class="form__label-text">Overlap (ambas condiciones)</span>
+                <span class="form__label-icon">🔄</span>
+              </label>
+              <input 
+                type="number" 
+                id="overlap" 
+                formControlName="overlap"
+                class="form__input"
+                [class.form__input--invalid]="isFieldInvalid('overlap')"
+                min="0"
+                placeholder="0"
+              />
+              <small class="form__hint">Número de cartas que cumplen AMBAS condiciones. Debe ser ≤ min(tipo1, tipo2)</small>
+              <small class="form__error" *ngIf="isFieldInvalid('overlap')">
+                {{ getFieldError('overlap') }}
+              </small>
+            </div>
+
             <!-- Botones de acción -->
             <div class="form__actions">
               <button 
