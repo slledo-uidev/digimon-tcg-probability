@@ -106,13 +106,17 @@ export class CalculatorService {
    * Usa el Principio de Inclusión-Exclusión:
    * P(A ∪ B) = P(A) + P(B) - P(A ∩ B)
    * P(Doble Hit) = 1 - P(miss A) - P(miss B) + P(miss both)
+   * 
+   * @param overlap - Número de cartas que cumplen AMBAS condiciones (K1 ∩ K2)
+   *                  Cuando overlap > 0, las cartas únicas son K1 + K2 - overlap
    */
   private calculateDoubleHit(
     N: number, 
     K1: number, 
     K2: number, 
     n: number, 
-    totalCombinations: number
+    totalCombinations: number,
+    overlap: number = 0
   ): number {
     if (n < 2 || K1 <= 0 || K2 <= 0) return 0;
     
@@ -120,8 +124,10 @@ export class CalculatorService {
     const missType2 = this.binomialCoefficient(N - K2, n) / totalCombinations;
     
     // P(miss ambos) solo si hay suficientes cartas no-objetivo
+    // Con overlap: cartas únicas totales = K1 + K2 - overlap
+    // Cartas que NO son objetivo = N - (K1 + K2 - overlap)
     let missBoth = 0;
-    const nonTargetCards = N - K1 - K2;
+    const nonTargetCards = N - K1 - K2 + overlap;
     if (nonTargetCards >= n && nonTargetCards >= 0) {
       missBoth = this.binomialCoefficient(nonTargetCards, n) / totalCombinations;
     }
@@ -141,8 +147,20 @@ export class CalculatorService {
     if (input.type1Cards < 0 || input.type2Cards < 0) {
       throw new Error('Las cantidades de cartas no pueden ser negativas');
     }
-    if (input.type1Cards + input.type2Cards > input.totalCardsInDeck) {
-      throw new Error('Las cartas objetivo no pueden superar el total del mazo');
+    
+    // Validar overlap
+    const overlap = input.overlap || 0;
+    if (overlap < 0) {
+      throw new Error('El overlap no puede ser negativo');
+    }
+    if (overlap > Math.min(input.type1Cards, input.type2Cards)) {
+      throw new Error(`El overlap (${overlap}) no puede ser mayor que min(type1: ${input.type1Cards}, type2: ${input.type2Cards})`);
+    }
+    
+    // Validar cartas únicas totales
+    const uniqueTargetCards = input.type1Cards + input.type2Cards - overlap;
+    if (uniqueTargetCards > input.totalCardsInDeck) {
+      throw new Error('Las cartas objetivo (considerando overlap) no pueden superar el total del mazo');
     }
 
     const N = input.totalCardsInDeck;
@@ -157,7 +175,7 @@ export class CalculatorService {
 
     // Calcular valores base
     const totalCombinations = this.binomialCoefficient(N, n);
-    const nonTargetCards = N - K1 - K2;
+    const nonTargetCards = N - K1 - K2 + overlap;
 
     // Calcular probabilidades
     const hitType1 = this.calculateHitType1(N, K1, n, totalCombinations);
@@ -168,7 +186,7 @@ export class CalculatorService {
       : undefined;
     
     const doubleHit = config.showType2 && K1 > 0 && K2 > 0 
-      ? this.calculateDoubleHit(N, K1, K2, n, totalCombinations) 
+      ? this.calculateDoubleHit(N, K1, K2, n, totalCombinations, overlap) 
       : undefined;
 
     return {

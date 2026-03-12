@@ -40,7 +40,8 @@ export class CalculatorComponent implements OnInit {
       customValue: [3],
       totalCardsInDeck: [45, [Validators.required, Validators.min(1), Validators.max(100)]],
       type1Cards: [4, [Validators.required, Validators.min(0)]],
-      type2Cards: [10, [Validators.min(0)]]
+      type2Cards: [10, [Validators.min(0)]],
+      overlap: [0, [Validators.min(0)]]
     });
   }
 
@@ -55,7 +56,7 @@ export class CalculatorComponent implements OnInit {
     });
 
     // Forzar recálculo cuando cambien valores si ya hay resultado
-    ['customValue', 'totalCardsInDeck', 'type1Cards', 'type2Cards'].forEach(field => {
+    ['customValue', 'totalCardsInDeck', 'type1Cards', 'type2Cards', 'overlap'].forEach(field => {
       this.calculatorForm.get(field)?.valueChanges.subscribe(() => {
         if (this.result) {
           this.calculate();
@@ -69,14 +70,21 @@ export class CalculatorComponent implements OnInit {
     
     // Actualizar validador de type2Cards
     const type2Control = this.calculatorForm.get('type2Cards');
+    const overlapControl = this.calculatorForm.get('overlap');
+    
     if (config.showType2) {
       type2Control?.setValidators([Validators.min(0)]);
       type2Control?.enable();
+      overlapControl?.setValidators([Validators.min(0)]);
+      overlapControl?.enable();
     } else {
       type2Control?.setValue(0);
       type2Control?.disable();
+      overlapControl?.setValue(0);
+      overlapControl?.disable();
     }
     type2Control?.updateValueAndValidity();
+    overlapControl?.updateValueAndValidity();
   }
 
   calculate(): void {
@@ -93,7 +101,8 @@ export class CalculatorComponent implements OnInit {
         customValue: formValue.customValue,
         totalCardsInDeck: formValue.totalCardsInDeck,
         type1Cards: formValue.type1Cards,
-        type2Cards: formValue.type2Cards || 0
+        type2Cards: formValue.type2Cards || 0,
+        overlap: formValue.overlap || 0
       };
 
       this.result = this.calculatorService.calculate(input);
@@ -109,7 +118,8 @@ export class CalculatorComponent implements OnInit {
       customValue: 3,
       totalCardsInDeck: 45,
       type1Cards: 4,
-      type2Cards: 10
+      type2Cards: 10,
+      overlap: 0
     });
     this.result = null;
   }

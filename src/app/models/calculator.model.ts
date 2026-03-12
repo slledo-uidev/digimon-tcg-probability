@@ -17,6 +17,8 @@ export interface CalculatorInput {
   totalCardsInDeck: number; // B3: Total de cartas en mazo
   type1Cards: number; // B4: Cartas tipo 1
   type2Cards: number; // B5: Cartas tipo 2 (opcional)
+  overlap?: number; // Cartas que cumplen AMBAS condiciones (type1 Y type2)
+                    // Constraint: 0 ≤ overlap ≤ min(type1Cards, type2Cards)
 }
 
 export interface CalculatorResult {
