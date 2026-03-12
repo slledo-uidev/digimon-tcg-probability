@@ -38,6 +38,7 @@
     font-weight: $theme-font-weight-bold;
     margin: 0 0 $theme-spacing-2 0;
     text-shadow: 0 2px 4px rgba($color-black, 0.2);
+    color: $color-white;
 
     @media (min-width: $theme-breakpoint-md) {
       font-size: $theme-font-size-4xl;
@@ -47,12 +48,10 @@
       font-size: $theme-font-size-5xl;
     }
 
-    // En modo oscuro, mismo color que el gradiente del fondo
+    // En modo oscuro, color negro
     body.dark-theme & {
-      color: transparent;
-      background: var(--theme-gradient-primary);
-      -webkit-background-clip: text;
-      background-clip: text;
+      color: $color-black;
+      text-shadow: none;
     }
   }
 
@@ -61,17 +60,15 @@
     margin: 0;
     opacity: $theme-opacity-95;
     line-height: $theme-line-height-normal;
+    color: $color-white;
 
     @media (min-width: $theme-breakpoint-md) {
       font-size: $theme-font-size-base;
     }
 
-    // En modo oscuro, mismo color que el gradiente del fondo
+    // En modo oscuro, color negro
     body.dark-theme & {
-      color: transparent;
-      background: var(--theme-gradient-primary);
-      -webkit-background-clip: text;
-      background-clip: text;
+      color: $color-black;
       opacity: 0.8;
     }
 
