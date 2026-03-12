@@ -7,11 +7,11 @@
 
 .results {
   &__empty {
-    background: var(--color-bg-card);
-    border-radius: var(--border-radius);
+    background: var(--theme-color-bg-elevated);
+    border-radius: $theme-radius-lg;
     padding: $theme-spacing-12 $theme-spacing-8;
     text-align: center;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--theme-shadow-md);
     min-height: 400px;
     display: flex;
     flex-direction: column;
@@ -27,15 +27,15 @@
   }
 
   &__header {
-    background: var(--color-bg-card);
-    border-radius: var(--border-radius);
+    background: var(--theme-color-bg-elevated);
+    border-radius: $theme-radius-lg;
     padding: $theme-spacing-6;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--theme-shadow-sm);
   }
 
   &__title {
     font-size: $theme-font-size-2xl;
-    color: var(--color-text);
+    color: var(--theme-color-text-primary);
     margin: 0 0 $theme-spacing-4 0;
   }
 
@@ -54,8 +54,8 @@
 
   &__info {
     background: rgba(52, 152, 219, 0.05);
-    border: 2px dashed var(--color-primary);
-    border-radius: var(--border-radius);
+    border: 2px dashed var(--theme-color-primary);
+    border-radius: $theme-radius-lg;
     padding: $theme-spacing-6;
   }
 }
@@ -69,12 +69,12 @@
 
   &__title {
     font-size: $theme-font-size-2xl;
-    color: var(--color-text);
+    color: var(--theme-color-text-primary);
     margin: 0 0 $theme-spacing-2 0;
   }
 
   &__text {
-    color: var(--color-text-light);
+    color: var(--theme-color-text-secondary);
     line-height: $theme-line-height-relaxed;
     max-width: 400px;
     margin: 0;
@@ -83,10 +83,10 @@
 
 .meta {
   &__item {
-    color: var(--color-text-light);
+    color: var(--theme-color-text-secondary);
 
     strong {
-      color: var(--color-text);
+      color: var(--theme-color-text-primary);
     }
   }
 }
@@ -112,48 +112,75 @@
 .info {
   &__title {
     font-size: $theme-font-size-lg;
-    color: var(--color-text);
+    color: var(--theme-color-text-primary);
     margin: 0 0 $theme-spacing-4 0;
   }
 
   &__list {
     margin: 0;
     padding-left: $theme-spacing-6;
-    color: var(--color-text-light);
+    color: var(--theme-color-text-secondary);
     line-height: $theme-line-height-relaxed;
 
     strong {
-      color: var(--color-text);
+      color: var(--theme-color-text-primary);
     }
   }
 }
 
-.fab-recalculate {
+// ============================================
+// MOBILE: BOTÓN EXPANDIR A ANCHO COMPLETO
+// ============================================
+.mobile-expand-btn {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
+  width: 100%;
+  padding: $theme-spacing-5 $theme-spacing-4;
   background: var(--gradient-primary);
   color: $color-white;
   border: none;
-  font-size: $theme-font-size-2xl;
+  border-radius: $theme-radius-lg $theme-radius-lg 0 0;
+  font-size: $theme-font-size-lg;
+  font-weight: $theme-font-weight-semibold;
   cursor: pointer;
-  box-shadow: var(--shadow-lg);
-  transition: var(--transition);
+  box-shadow: 0 -4px 20px rgba($color-black, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: $theme-spacing-3;
+  
+  // Animación de entrada desde abajo
+  animation: slideUpFromBottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
-  &:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 24px rgba($color-black, 0.3);
+  &__icon {
+    font-size: $theme-font-size-2xl;
+    display: flex;
+    align-items: center;
+  }
+
+  &__text {
+    font-size: $theme-font-size-base;
+    letter-spacing: 0.3px;
   }
 
   &:active {
-    transform: scale(0.95);
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+// Animación de slide up desde el bottom
+@keyframes slideUpFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

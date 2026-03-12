@@ -1,6 +1,7 @@
 /* Global Styles - Digimon TCG Probability Calculator */
 
 @import './app/scss/d-prob-theme-tokens';
+@import './app/scss/d-prob-theme-variables';
 
 /* CSS Reset & Box Sizing */
 *,
@@ -55,17 +56,18 @@ html {
 
 body {
   font-family: $theme-font-family-base;
-  color: var(--color-text);
-  background-color: var(--color-bg);
+  color: var(--theme-color-text-primary);
+  background-color: var(--theme-color-bg-base);
   line-height: $theme-line-height-relaxed;
   min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-weight: $theme-font-weight-bold;
   line-height: $theme-line-height-tight;
-  color: var(--color-text);
+  color: var(--theme-color-text-primary);
 }
 
 h1 {
@@ -86,13 +88,13 @@ p {
 
 /* Links */
 a {
-  color: var(--color-primary);
+  color: var(--theme-color-primary);
   text-decoration: none;
   transition: var(--transition);
 }
 
 a:hover {
-  color: var(--color-primary-dark);
+  color: var(--theme-color-primary-hover);
 }
 
 /* Scrollbar Styling */
@@ -102,17 +104,17 @@ a:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg);
+  background: var(--theme-color-bg-base);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-text-lightest);
+  background: var(--theme-color-border-base);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-light);
+  background: var(--theme-color-border-dark);
 }
 
 /* Form Elements Global Styles */
@@ -127,7 +129,7 @@ input:focus,
 select:focus,
 textarea:focus {
   outline: none;
-  border-color: var(--color-primary);
+  border-color: var(--theme-color-primary);
 }
 
 button {

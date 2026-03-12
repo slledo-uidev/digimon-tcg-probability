@@ -1,25 +1,8 @@
 @import '../../../scss/d-prob-theme-tokens';
 
-// Variables CSS personalizadas usando tokens
+// Variables CSS personalizadas (ahora en theme-variables.scss)
 :host {
-  --color-primary: #{$theme-color-primary};
-  --color-secondary: #{$theme-color-secondary};
-  --color-success: #{$theme-color-success};
-  --color-warning: #{$theme-color-warning};
-  --color-danger: #{$theme-color-danger};
-  --color-text: #{$theme-color-text-primary};
-  --color-text-light: #{$theme-color-text-secondary};
-  --color-bg: #{$theme-color-bg-base};
-  --color-bg-card: #{$theme-color-bg-card};
-  --gradient-primary: #{$theme-gradient-primary};
-  --gradient-success: #{$theme-gradient-success};
-  --gradient-warning: #{$theme-gradient-warning};
-  --gradient-danger: #{$theme-gradient-danger};
-  --shadow-sm: #{$theme-shadow-sm};
-  --shadow-md: #{$theme-shadow-md};
-  --shadow-lg: #{$theme-shadow-lg};
-  --border-radius: #{$theme-radius-lg};
-  --transition: #{$theme-transition-base};
+  display: block;
 }
 
 // ============================================
@@ -27,8 +10,9 @@
 // ============================================
 .calculator {
   min-height: 100vh;
-  background: var(--color-bg);
+  background: var(--theme-color-bg-base);
   padding: $theme-spacing-4;
+  transition: background-color $theme-transition-base;
 
   @media (min-width: $theme-breakpoint-md) {
     padding: $theme-spacing-8;

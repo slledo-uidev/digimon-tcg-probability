@@ -4,10 +4,11 @@
   order: 1;
 
   &__card {
-    background: var(--color-bg-card);
-    border-radius: var(--border-radius);
+    background: var(--theme-color-bg-elevated);
+    border-radius: $theme-radius-lg;
     padding: $theme-card-padding;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--theme-shadow-md);
+    transition: background-color $theme-transition-base, box-shadow $theme-transition-base;
   
     @media (min-width: $theme-breakpoint-md) {
       padding: $theme-card-padding-lg;
@@ -20,28 +21,28 @@
     align-items: center;
     margin-bottom: $theme-spacing-6;
     padding-bottom: $theme-spacing-4;
-    border-bottom: 3px solid var(--color-primary);
+    border-bottom: 3px solid var(--theme-color-primary);
   }
   
   &__title {
     font-size: $theme-font-size-2xl;
-    color: var(--color-text);
+    color: var(--theme-color-text-primary);
     margin: 0;
   }
   
   &__toggle {
     background: none;
     border: none;
-    color: var(--color-primary);
+    color: var(--theme-color-primary);
     font-size: $theme-font-size-2xl;
     cursor: pointer;
     padding: $theme-spacing-2;
     line-height: 1;
-    transition: var(--transition);
+    transition: $theme-transition-base;
     user-select: none;
   
     &:hover {
-      color: $theme-color-primary-dark;
+      color: var(--theme-color-primary-hover);
       transform: scale(1.1);
     }
   
@@ -81,7 +82,7 @@
     justify-content: space-between;
     align-items: center;
     font-weight: $theme-font-weight-semibold;
-    color: var(--color-text);
+    color: var(--theme-color-text-primary);
     font-size: $theme-font-size-base;
   }
   
@@ -97,12 +98,27 @@
     border-radius: $theme-input-border-radius;
     font-size: $theme-input-font-size;
     font-family: inherit;
-    transition: var(--transition);
-    background: $color-white;
+    transition: $theme-transition-base;
+    background: var(--theme-color-bg-input);
+    
+    // En modo oscuro, asegurar que el texto sea oscuro
+    body.dark-theme & {
+      color: $color-gray-900;
+      
+      &::placeholder {
+        color: $color-gray-500;
+      }
+      
+      // Opciones del select en modo oscuro
+      option {
+        background: $color-white;
+        color: $color-gray-900;
+      }
+    }
 
     &:focus {
       outline: none;
-      border-color: var(--color-primary);
+      border-color: var(--theme-color-primary);
       box-shadow: $theme-shadow-focus-primary;
     }
 
@@ -117,7 +133,7 @@
     }
 
     &--invalid {
-      border-color: var(--color-danger);
+      border-color: var(--theme-color-danger);
 
       &:focus {
         box-shadow: $theme-shadow-focus-danger;
@@ -127,13 +143,13 @@
 
   &__hint {
     font-size: $theme-font-size-sm;
-    color: var(--color-text-light);
+    color: var(--theme-color-text-secondary);
     font-style: italic;
   }
 
   &__error {
     font-size: $theme-font-size-sm;
-    color: var(--color-danger);
+    color: var(--theme-color-danger);
     font-weight: $theme-font-weight-medium;
   }
 
@@ -179,13 +195,13 @@ input[type="number"] {
     width: 40px;
     height: auto;
     flex-shrink: 0;
-    background: var(--color-primary);
+    background: var(--theme-color-primary);
     color: $color-white;
     border: none;
     font-size: $theme-font-size-xl;
     font-weight: $theme-font-weight-bold;
     cursor: pointer;
-    transition: var(--transition);
+    transition: $theme-transition-base;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -197,7 +213,7 @@ input[type="number"] {
     }
   
     &:hover:not(:disabled) {
-      background: $theme-color-primary-dark;
+      background: var(--theme-color-primary-hover);
       transform: scale(1.05);
     }
   
@@ -252,7 +268,7 @@ input[type="number"] {
   }
 
   &--primary {
-    background: var(--gradient-success);
+    background: var(--theme-gradient-success);
     color: $color-white;
   }
 

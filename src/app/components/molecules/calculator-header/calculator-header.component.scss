@@ -1,37 +1,150 @@
 @import '../../../scss/d-prob-theme-tokens';
 
 .calculator-header {
-  background: var(--gradient-primary);
+  background: var(--theme-gradient-primary);
   color: $color-white;
   padding: $theme-header-padding-y $theme-header-padding-x;
   border-radius: $theme-radius-lg;
   margin-bottom: $theme-spacing-8;
-  box-shadow: var(--shadow-lg);
-  text-align: center;
+  box-shadow: var(--theme-shadow-lg);
 
   @media (min-width: $theme-breakpoint-md) {
     padding: $theme-header-padding-y-lg $theme-header-padding-x-lg;
   }
 
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $theme-spacing-4;
+
+    @media (max-width: $theme-breakpoint-sm) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  &__text {
+    flex: 1;
+    text-align: center;
+
+    @media (min-width: $theme-breakpoint-sm) {
+      text-align: left;
+    }
+  }
+
   &__title {
-    font-size: $theme-font-size-3xl;
+    font-size: $theme-font-size-2xl;
     font-weight: $theme-font-weight-bold;
     margin: 0 0 $theme-spacing-2 0;
     text-shadow: 0 2px 4px rgba($color-black, 0.2);
 
     @media (min-width: $theme-breakpoint-md) {
+      font-size: $theme-font-size-4xl;
+    }
+
+    @media (min-width: $theme-breakpoint-lg) {
       font-size: $theme-font-size-5xl;
+    }
+
+    // En modo oscuro, mismo color que el gradiente del fondo
+    body.dark-theme & {
+      color: transparent;
+      background: var(--theme-gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
     }
   }
 
   &__description {
-    font-size: $theme-font-size-base;
+    font-size: $theme-font-size-sm;
     margin: 0;
     opacity: $theme-opacity-95;
     line-height: $theme-line-height-normal;
 
     @media (min-width: $theme-breakpoint-md) {
+      font-size: $theme-font-size-base;
+    }
+
+    // En modo oscuro, mismo color que el gradiente del fondo
+    body.dark-theme & {
+      color: transparent;
+      background: var(--theme-gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      opacity: 0.8;
+    }
+
+    @media (min-width: $theme-breakpoint-lg) {
       font-size: $theme-font-size-lg;
     }
+  }
+
+  // Botón de toggle del tema
+  &__theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: $theme-radius-circle;
+    background: rgba($color-white, 0.15);
+    border: 2px solid rgba($color-white, 0.3);
+    color: $color-white;
+    font-size: $theme-font-size-2xl;
+    cursor: pointer;
+    transition: all $theme-transition-base;
+    backdrop-filter: blur(4px);
+
+    @media (min-width: $theme-breakpoint-md) {
+      width: 56px;
+      height: 56px;
+      min-width: 56px;
+    }
+
+    &:hover {
+      background: rgba($color-white, 0.25);
+      border-color: rgba($color-white, 0.5);
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-white;
+      outline-offset: 2px;
+    }
+  }
+}
+
+.theme-toggle {
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: toggleFadeIn 0.3s ease-in-out;
+
+    &--sun,
+    &--moon {
+      font-size: $theme-font-size-xl;
+
+      @media (min-width: $theme-breakpoint-md) {
+        font-size: $theme-font-size-2xl;
+      }
+    }
+  }
+}
+
+@keyframes toggleFadeIn {
+  from {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
   }
 }

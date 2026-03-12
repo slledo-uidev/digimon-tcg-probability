@@ -1,14 +1,15 @@
 <section class="calculator-results" id="results-section">
   
-  <!-- Botón flotante para volver al formulario (solo mobile) -->
+  <!-- Botón de ancho completo para volver al formulario (solo mobile) -->
   <button 
     *ngIf="isMobile && result && !isFormExpanded"
     type="button"
-    class="fab-recalculate"
+    class="mobile-expand-btn"
     (click)="onOpenForm()"
     aria-label="Volver a configurar parámetros"
   >
-    📝
+    <span class="mobile-expand-btn__icon">📝</span>
+    <span class="mobile-expand-btn__text">Modificar Parámetros</span>
   </button>
   
   <!-- Estado vacío -->

@@ -1,0 +1,29 @@
+// ============================================
+// DARK THEME COLORS
+// ============================================
+// Paleta optimizada para modo oscuro siguiendo estándares modernos
+
+// Dark backgrounds
+$color-dark-bg-base: #0f0f0f;          // Fondo principal muy oscuro
+$color-dark-bg-elevated: #1a1a1a;      // Fondo de tarjetas/cards
+$color-dark-bg-elevated-hover: #232323; // Hover state para cards
+$color-dark-bg-input: #2a2a2a;         // Fondo de inputs
+
+// Dark text colors
+$color-dark-text-primary: #e8e8e8;     // Texto principal (muy legible)
+$color-dark-text-secondary: #b0b0b0;   // Texto secundario
+$color-dark-text-tertiary: #888888;    // Texto terciario
+$color-dark-text-muted: #666666;       // Texto deshabilitado
+
+// Dark borders
+$color-dark-border-base: #2a2a2a;      // Borde sutil
+$color-dark-border-elevated: #3a3a3a;  // Borde más visible
+$color-dark-border-input: #404040;     // Borde de inputs
+
+// Colors específicos para dark mode
+$color-dark-turquoise-400: #8ed4c7;    // Turquesa más brillante para mejor contraste
+$color-dark-turquoise-500: #78c3b4;    // Color principal ajustado
+$color-dark-turquoise-300: #a0e0d5;    // Versión aún más clara
+
+$color-dark-orange-300: #f5d389;       // Amarillo más brillante
+$color-dark-red-400: #d64545;          // Rojo más brillante para dark mode

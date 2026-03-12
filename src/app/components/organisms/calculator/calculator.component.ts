@@ -55,16 +55,16 @@ export class CalculatorComponent implements OnInit {
     // Escuchar cambios en el tipo de búsqueda
     this.calculatorForm.get('searchType')?.valueChanges.subscribe((searchType: SearchType) => {
       this.updateFormValidation(searchType);
-      // Recalcular automáticamente si ya hay un resultado
-      if (this.result) {
+      // Recalcular automáticamente si ya hay un resultado (SOLO EN DESKTOP)
+      if (this.result && !this.isMobile) {
         this.calculate();
       }
     });
 
-    // Forzar recálculo cuando cambien valores si ya hay resultado
+    // Forzar recálculo cuando cambien valores si ya hay resultado (SOLO EN DESKTOP)
     ['customValue', 'totalCardsInDeck', 'type1Cards', 'type2Cards', 'overlap'].forEach(field => {
       this.calculatorForm.get(field)?.valueChanges.subscribe(() => {
-        if (this.result) {
+        if (this.result && !this.isMobile) {
           this.calculate();
         }
       });
