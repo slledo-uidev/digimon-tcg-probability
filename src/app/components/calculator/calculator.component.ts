@@ -24,6 +24,11 @@ export class CalculatorComponent implements OnInit {
   
   customValues = [1, 2, 3, 4, 5, 6];
 
+  // Control de UI móvil
+  isMobile: boolean = false;
+  isFormExpanded: boolean = true;
+  private mediaQuery?: MediaQueryList;
+
   constructor(
     private fb: FormBuilder,
     private calculatorService: CalculatorService
@@ -32,6 +37,7 @@ export class CalculatorComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.setupFormListeners();
+    this.setupMobileDetection();
   }
 
   private initForm(): void {
@@ -62,6 +68,21 @@ export class CalculatorComponent implements OnInit {
           this.calculate();
         }
       });
+    });
+  }
+
+  private setupMobileDetection(): void {
+    // Detectar viewport móvil (< 768px)
+    this.mediaQuery = window.matchMedia('(max-width: 767px)');
+    this.isMobile = this.mediaQuery.matches;
+    
+    // Escuchar cambios de viewport
+    this.mediaQuery.addEventListener('change', (e) => {
+      this.isMobile = e.matches;
+      // Si cambiamos a desktop, asegurar que el form esté expandido
+      if (!this.isMobile) {
+        this.isFormExpanded = true;
+      }
     });
   }
 
@@ -106,6 +127,12 @@ export class CalculatorComponent implements OnInit {
       };
 
       this.result = this.calculatorService.calculate(input);
+      
+      // En mobile, colapsar form y hacer scroll a resultados
+      if (this.isMobile) {
+        this.isFormExpanded = false;
+        setTimeout(() => this.scrollToResults(), 300);
+      }
     } catch (error: any) {
       alert('Error en el cálculo: ' + error.message);
       this.result = null;
@@ -178,5 +205,99 @@ export class CalculatorComponent implements OnInit {
       return `El valor máximo es ${max}`;
     }
     return '';
+  }
+
+  // Métodos para botones +/- de inputs numéricos
+  increment(fieldName: string): void {
+    const control = this.calculatorForm.get(fieldName);
+    if (!control) return;
+
+    const currentValue = control.value || 0;
+    const limits = this.getFieldLimits(fieldName);
+    
+    if (currentValue < limits.max) {
+      control.setValue(currentValue + 1);
+      control.markAsDirty();
+    }
+  }
+
+  decrement(fieldName: string): void {
+    const control = this.calculatorForm.get(fieldName);
+    if (!control) return;
+
+    const currentValue = control.value || 0;
+    const limits = this.getFieldLimits(fieldName);
+    
+    if (currentValue > limits.min) {
+      control.setValue(currentValue - 1);
+      control.markAsDirty();
+    }
+  }
+
+  isAtMax(fieldName: string): boolean {
+    const control = this.calculatorForm.get(fieldName);
+    if (!control) return false;
+
+    const currentValue = control.value || 0;
+    const limits = this.getFieldLimits(fieldName);
+    return currentValue >= limits.max;
+  }
+
+  isAtMin(fieldName: string): boolean {
+    const control = this.calculatorForm.get(fieldName);
+    if (!control) return false;
+
+    const currentValue = control.value || 0;
+    const limits = this.getFieldLimits(fieldName);
+    return currentValue <= limits.min;
+  }
+
+  private getFieldLimits(fieldName: string): { min: number; max: number } {
+    const totalCards = this.calculatorForm.get('totalCardsInDeck')?.value || 100;
+    const type1Cards = this.calculatorForm.get('type1Cards')?.value || 0;
+    const type2Cards = this.calculatorForm.get('type2Cards')?.value || 0;
+
+    switch (fieldName) {
+      case 'totalCardsInDeck':
+        return { min: 1, max: 100 };
+      
+      case 'type1Cards':
+        return { min: 0, max: totalCards };
+      
+      case 'type2Cards':
+        return { min: 0, max: totalCards };
+      
+      case 'overlap':
+        // El overlap no puede exceder el mínimo entre type1Cards y type2Cards
+        const maxOverlap = Math.min(type1Cards, type2Cards);
+        return { min: 0, max: maxOverlap };
+      
+      default:
+        return { min: 0, max: 100 };
+    }
+  }
+
+  // Métodos para mobile: control de formulario colapsable
+  toggleForm(): void {
+    this.isFormExpanded = !this.isFormExpanded;
+  }
+
+  openFormAndScroll(): void {
+    this.isFormExpanded = true;
+    setTimeout(() => this.scrollToForm(), 300);
+  }
+
+  private scrollToResults(): void {
+    const resultsSection = document.getElementById('results-section');
+    if (resultsSection) {
+      resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  private scrollToForm(): void {
+    const formSection = document.getElementById('form-section');
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }

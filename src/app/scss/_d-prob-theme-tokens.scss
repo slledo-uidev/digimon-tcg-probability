@@ -1,0 +1,218 @@
+// ============================================
+// DIGIMON TCG PROBABILITY - THEME TOKENS
+// ============================================
+// Variables agnósticas y semánticas derivadas de colores primitivos
+// Cambiando estos valores se ajusta toda la aplicación
+
+@import './d-prob-colors';
+
+// ============================================
+// SEMANTIC COLOR TOKENS
+// ============================================
+
+// Primary Brand Colors (Turquesa del equipo)
+$theme-color-primary: $color-turquoise-500;
+$theme-color-primary-dark: $color-turquoise-600;
+$theme-color-primary-hover: $color-turquoise-600;
+
+$theme-color-secondary: $color-dark-800;
+$theme-color-secondary-dark: $color-dark-900;
+
+// State Colors
+$theme-color-success: $color-turquoise-500;  // Usando turquesa del equipo
+$theme-color-success-dark: $color-turquoise-600;
+$theme-color-success-light: $color-turquoise-400;
+
+$theme-color-warning: $color-orange-400;  // Amarillo dorado del equipo
+$theme-color-warning-dark: $color-orange-500;
+$theme-color-warning-light: $color-yellow-300;
+
+$theme-color-danger: $color-red-400;  // Rojo del equipo
+$theme-color-danger-dark: $color-red-500;
+
+// Text Colors
+$theme-color-text-primary: $color-gray-900;  // Muy oscuro del equipo
+$theme-color-text-secondary: $color-gray-600;
+$theme-color-text-tertiary: $color-gray-500;
+$theme-color-text-muted: $color-gray-400;
+
+// Background Colors
+$theme-color-bg-base: $color-gray-100;
+$theme-color-bg-light: $color-gray-50;
+$theme-color-bg-card: $color-white;
+$theme-color-bg-disabled: $color-gray-50;
+$theme-color-bg-dark: $color-dark-900;  // Para secciones oscuras
+
+// Border Colors
+$theme-color-border-base: $color-gray-150;
+$theme-color-border-dark: $color-gray-300;
+$theme-color-border-input: $color-gray-200;
+$theme-color-border-input-hover: $color-gray-400;
+$theme-color-border-input-focus: $theme-color-primary;
+
+// ============================================
+// GRADIENTS (Actualizados con colores del equipo)
+// ============================================
+$theme-gradient-primary: linear-gradient(135deg, $color-turquoise-500 0%, $color-turquoise-600 100%);
+$theme-gradient-dark: linear-gradient(135deg, $color-dark-800 0%, $color-dark-900 100%);
+$theme-gradient-success: linear-gradient(135deg, $color-turquoise-500 0%, $color-turquoise-400 100%);
+$theme-gradient-warning: linear-gradient(135deg, $color-orange-400 0%, $color-yellow-300 100%);
+$theme-gradient-danger: linear-gradient(135deg, $color-red-400 0%, $color-red-500 100%);
+
+// ============================================
+// SPACING TOKENS (Scale base: 4px)
+// ============================================
+$theme-spacing-0: 0;
+$theme-spacing-1: 0.25rem;  // 4px
+$theme-spacing-2: 0.5rem;   // 8px
+$theme-spacing-3: 0.75rem;  // 12px
+$theme-spacing-4: 1rem;     // 16px
+$theme-spacing-5: 1.25rem;  // 20px
+$theme-spacing-6: 1.5rem;   // 24px
+$theme-spacing-7: 1.75rem;  // 28px
+$theme-spacing-8: 2rem;     // 32px
+$theme-spacing-10: 2.5rem;  // 40px
+$theme-spacing-12: 3rem;    // 48px
+$theme-spacing-16: 4rem;    // 64px
+
+// ============================================
+// BORDER RADIUS TOKENS
+// ============================================
+$theme-radius-none: 0;
+$theme-radius-sm: 4px;
+$theme-radius-base: 6px;
+$theme-radius-md: 8px;
+$theme-radius-lg: 12px;
+$theme-radius-xl: 16px;
+$theme-radius-full: 50%;
+$theme-radius-circle: 9999px;
+
+// ============================================
+// SHADOW TOKENS
+// ============================================
+$theme-shadow-none: none;
+$theme-shadow-xs: 0 1px 2px rgba($color-black, 0.05);
+$theme-shadow-sm: 0 2px 4px rgba($color-black, 0.1);
+$theme-shadow-base: 0 4px 6px rgba($color-black, 0.1);
+$theme-shadow-md: 0 4px 8px rgba($color-black, 0.12);
+$theme-shadow-lg: 0 4px 15px rgba($color-black, 0.15);
+$theme-shadow-xl: 0 8px 16px rgba($color-black, 0.15);
+$theme-shadow-2xl: 0 12px 24px rgba($color-black, 0.2);
+
+// Shadow Colors for interactive elements
+$theme-shadow-primary: 0 4px 15px rgba($color-turquoise-500, 0.4);
+$theme-shadow-success: 0 4px 15px rgba($color-turquoise-500, 0.3);
+$theme-shadow-danger: 0 4px 15px rgba($color-red-400, 0.3);
+$theme-shadow-focus-primary: 0 0 0 3px rgba($color-turquoise-500, 0.1);
+$theme-shadow-focus-danger: 0 0 0 3px rgba($color-red-400, 0.1);
+
+// ============================================
+// TRANSITION TOKENS
+// ============================================
+$theme-transition-fast: all 0.15s ease;
+$theme-transition-base: all 0.3s ease;
+$theme-transition-slow: all 0.5s ease;
+
+$theme-transition-timing-ease: ease;
+$theme-transition-timing-ease-in: ease-in;
+$theme-transition-timing-ease-out: ease-out;
+$theme-transition-timing-ease-in-out: ease-in-out;
+
+// ============================================
+// TYPOGRAPHY TOKENS
+// ============================================
+$theme-font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$theme-font-family-mono: 'Courier New', Courier, monospace;
+
+// Font Sizes
+$theme-font-size-xs: 0.75rem;    // 12px
+$theme-font-size-sm: 0.85rem;    // 13.6px
+$theme-font-size-base: 0.95rem;  // 15.2px
+$theme-font-size-md: 1rem;       // 16px
+$theme-font-size-lg: 1.1rem;     // 17.6px
+$theme-font-size-xl: 1.25rem;    // 20px
+$theme-font-size-2xl: 1.5rem;    // 24px
+$theme-font-size-3xl: 1.75rem;   // 28px
+$theme-font-size-4xl: 2rem;      // 32px
+$theme-font-size-5xl: 2.5rem;    // 40px
+$theme-font-size-6xl: 3rem;      // 48px
+
+// Font Weights
+$theme-font-weight-normal: 400;
+$theme-font-weight-medium: 500;
+$theme-font-weight-semibold: 600;
+$theme-font-weight-bold: 700;
+
+// Line Heights
+$theme-line-height-tight: 1.2;
+$theme-line-height-normal: 1.5;
+$theme-line-height-relaxed: 1.6;
+$theme-line-height-loose: 1.8;
+
+// ============================================
+// Z-INDEX TOKENS
+// ============================================
+$theme-z-index-base: 1;
+$theme-z-index-dropdown: 100;
+$theme-z-index-sticky: 200;
+$theme-z-index-fixed: 300;
+$theme-z-index-modal-backdrop: 400;
+$theme-z-index-modal: 500;
+$theme-z-index-popover: 600;
+$theme-z-index-tooltip: 700;
+
+// ============================================
+// BREAKPOINT TOKENS
+// ============================================
+$theme-breakpoint-xs: 480px;
+$theme-breakpoint-sm: 640px;
+$theme-breakpoint-md: 768px;
+$theme-breakpoint-lg: 1024px;
+$theme-breakpoint-xl: 1280px;
+$theme-breakpoint-2xl: 1536px;
+
+// ============================================
+// OPACITY TOKENS
+// ============================================
+$theme-opacity-0: 0;
+$theme-opacity-10: 0.1;
+$theme-opacity-20: 0.2;
+$theme-opacity-30: 0.3;
+$theme-opacity-40: 0.4;
+$theme-opacity-50: 0.5;
+$theme-opacity-60: 0.6;
+$theme-opacity-70: 0.7;
+$theme-opacity-80: 0.8;
+$theme-opacity-90: 0.9;
+$theme-opacity-95: 0.95;
+$theme-opacity-100: 1;
+
+// ============================================
+// COMPONENT-SPECIFIC TOKENS
+// ============================================
+
+// Input/Form Controls
+$theme-input-padding-y: $theme-spacing-3;
+$theme-input-padding-x: $theme-spacing-4;
+$theme-input-border-width: 2px;
+$theme-input-border-radius: $theme-radius-md;
+$theme-input-font-size: $theme-font-size-md;
+
+// Buttons
+$theme-button-padding-y: $theme-spacing-3;
+$theme-button-padding-x: $theme-spacing-6;
+$theme-button-border-radius: $theme-radius-md;
+$theme-button-font-size: $theme-font-size-md;
+$theme-button-font-weight: $theme-font-weight-semibold;
+
+// Cards
+$theme-card-padding: $theme-spacing-6;
+$theme-card-padding-lg: $theme-spacing-8;
+$theme-card-border-radius: $theme-radius-lg;
+$theme-card-shadow: $theme-shadow-md;
+
+// Header/Hero
+$theme-header-padding-y: $theme-spacing-8;
+$theme-header-padding-x: $theme-spacing-6;
+$theme-header-padding-y-lg: $theme-spacing-12;
+$theme-header-padding-x-lg: $theme-spacing-8;

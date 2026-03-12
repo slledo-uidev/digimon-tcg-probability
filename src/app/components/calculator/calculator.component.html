@@ -13,11 +13,27 @@
     <div class="calculator__main">
       
       <!-- Sección de Inputs (Izquierda) -->
-      <section class="calculator__inputs">
+      <section class="calculator__inputs" id="form-section">
         <div class="inputs__card">
-          <h2 class="inputs__title">Parámetros de Entrada</h2>
+          <div class="inputs__header">
+            <h2 class="inputs__title">Parámetros de Entrada</h2>
+            <button 
+              *ngIf="isMobile" 
+              type="button"
+              class="inputs__toggle" 
+              (click)="toggleForm()"
+              [attr.aria-label]="isFormExpanded ? 'Colapsar formulario' : 'Expandir formulario'"
+            >
+              {{ isFormExpanded ? '▼' : '▶' }}
+            </button>
+          </div>
           
-          <form [formGroup]="calculatorForm" (ngSubmit)="calculate()" class="inputs__form">
+          <form 
+            [formGroup]="calculatorForm" 
+            (ngSubmit)="calculate()" 
+            class="inputs__form"
+            [class.inputs__form--collapsed]="isMobile && !isFormExpanded"
+          >
             
             <!-- 1. Tipo de búsqueda (B1) -->
             <div class="form__group">
@@ -57,16 +73,32 @@
                 <span class="form__label-text">Total de cartas en mazo</span>
                 <span class="form__label-icon">📚</span>
               </label>
-              <input 
-                type="number" 
-                id="totalCardsInDeck" 
-                formControlName="totalCardsInDeck"
-                class="form__input"
-                [class.form__input--invalid]="isFieldInvalid('totalCardsInDeck')"
-                min="1"
-                max="100"
-                placeholder="45"
-              />
+              <div class="input-group">
+                <button 
+                  type="button" 
+                  class="input-group__btn input-group__btn--decrement"
+                  (click)="decrement('totalCardsInDeck')"
+                  [disabled]="isAtMin('totalCardsInDeck')"
+                  aria-label="Decrementar"
+                >−</button>
+                <input 
+                  type="number" 
+                  id="totalCardsInDeck" 
+                  formControlName="totalCardsInDeck"
+                  class="form__input"
+                  [class.form__input--invalid]="isFieldInvalid('totalCardsInDeck')"
+                  min="1"
+                  max="100"
+                  placeholder="45"
+                />
+                <button 
+                  type="button" 
+                  class="input-group__btn input-group__btn--increment"
+                  (click)="increment('totalCardsInDeck')"
+                  [disabled]="isAtMax('totalCardsInDeck')"
+                  aria-label="Incrementar"
+                >+</button>
+              </div>
               <small class="form__hint">Cartas totales disponibles + Securities desconocidas</small>
               <small class="form__error" *ngIf="isFieldInvalid('totalCardsInDeck')">
                 {{ getFieldError('totalCardsInDeck') }}
@@ -79,15 +111,31 @@
                 <span class="form__label-text">{{ getCurrentConfig().type1Label }}</span>
                 <span class="form__label-icon">🎯</span>
               </label>
-              <input 
-                type="number" 
-                id="type1Cards" 
-                formControlName="type1Cards"
-                class="form__input"
-                [class.form__input--invalid]="isFieldInvalid('type1Cards')"
-                min="0"
-                placeholder="4"
-              />
+              <div class="input-group">
+                <button 
+                  type="button" 
+                  class="input-group__btn input-group__btn--decrement"
+                  (click)="decrement('type1Cards')"
+                  [disabled]="isAtMin('type1Cards')"
+                  aria-label="Decrementar"
+                >−</button>
+                <input 
+                  type="number" 
+                  id="type1Cards" 
+                  formControlName="type1Cards"
+                  class="form__input"
+                  [class.form__input--invalid]="isFieldInvalid('type1Cards')"
+                  min="0"
+                  placeholder="4"
+                />
+                <button 
+                  type="button" 
+                  class="input-group__btn input-group__btn--increment"
+                  (click)="increment('type1Cards')"
+                  [disabled]="isAtMax('type1Cards')"
+                  aria-label="Incrementar"
+                >+</button>
+              </div>
               <small class="form__error" *ngIf="isFieldInvalid('type1Cards')">
                 {{ getFieldError('type1Cards') }}
               </small>
@@ -99,15 +147,31 @@
                 <span class="form__label-text">{{ getCurrentConfig().type2Label }}</span>
                 <span class="form__label-icon">🎯</span>
               </label>
-              <input 
-                type="number" 
-                id="type2Cards" 
-                formControlName="type2Cards"
-                class="form__input"
-                [class.form__input--invalid]="isFieldInvalid('type2Cards')"
-                min="0"
-                placeholder="10"
-              />
+              <div class="input-group">
+                <button 
+                  type="button" 
+                  class="input-group__btn input-group__btn--decrement"
+                  (click)="decrement('type2Cards')"
+                  [disabled]="isAtMin('type2Cards')"
+                  aria-label="Decrementar"
+                >−</button>
+                <input 
+                  type="number" 
+                  id="type2Cards" 
+                  formControlName="type2Cards"
+                  class="form__input"
+                  [class.form__input--invalid]="isFieldInvalid('type2Cards')"
+                  min="0"
+                  placeholder="10"
+                />
+                <button 
+                  type="button" 
+                  class="input-group__btn input-group__btn--increment"
+                  (click)="increment('type2Cards')"
+                  [disabled]="isAtMax('type2Cards')"
+                  aria-label="Incrementar"
+                >+</button>
+              </div>
               <small class="form__hint">Dejar en 0 si no aplica</small>
             </div>
 
@@ -117,15 +181,31 @@
                 <span class="form__label-text">Overlap (ambas condiciones)</span>
                 <span class="form__label-icon">🔄</span>
               </label>
-              <input 
-                type="number" 
-                id="overlap" 
-                formControlName="overlap"
-                class="form__input"
-                [class.form__input--invalid]="isFieldInvalid('overlap')"
-                min="0"
-                placeholder="0"
-              />
+              <div class="input-group">
+                <button 
+                  type="button" 
+                  class="input-group__btn input-group__btn--decrement"
+                  (click)="decrement('overlap')"
+                  [disabled]="isAtMin('overlap')"
+                  aria-label="Decrementar"
+                >−</button>
+                <input 
+                  type="number" 
+                  id="overlap" 
+                  formControlName="overlap"
+                  class="form__input"
+                  [class.form__input--invalid]="isFieldInvalid('overlap')"
+                  min="0"
+                  placeholder="0"
+                />
+                <button 
+                  type="button" 
+                  class="input-group__btn input-group__btn--increment"
+                  (click)="increment('overlap')"
+                  [disabled]="isAtMax('overlap')"
+                  aria-label="Incrementar"
+                >+</button>
+              </div>
               <small class="form__hint">Número de cartas que cumplen AMBAS condiciones. Debe ser ≤ min(tipo1, tipo2)</small>
               <small class="form__error" *ngIf="isFieldInvalid('overlap')">
                 {{ getFieldError('overlap') }}
@@ -157,7 +237,18 @@
       </section>
 
       <!-- Sección de Resultados (Derecha) -->
-      <section class="calculator__results">
+      <section class="calculator__results" id="results-section">
+        
+        <!-- Botón flotante para volver al formulario (solo mobile) -->
+        <button 
+          *ngIf="isMobile && result && !isFormExpanded"
+          type="button"
+          class="fab-recalculate"
+          (click)="openFormAndScroll()"
+          aria-label="Volver a configurar parámetros"
+        >
+          📝
+        </button>
         
         <!-- Estado vacío -->
         <div class="results__empty" *ngIf="!result">
