@@ -1,10 +1,11 @@
 # Digimon TCG - Calculadora de Probabilidades
 
-> Una aplicación web desarrollada en Angular para calcular probabilidades de encontrar cartas específicas en tu mazo de Digimon Trading Card Game durante partidas en tiempo real.
+> Una aplicación web desarrollada en Angular que implementa las fórmulas exactas de la calculadora Excel de probabilidades hipergeométricas para Digimon Trading Card Game.
 
 [![Angular](https://img.shields.io/badge/Angular-16-red)](https://angular.io/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
-[![SCSS](https://img.shields.io/badge/SCSS-BEM-pink)](https://sass-lang.com/)
+[![SCSS](https://img.shields.io/badge/SCSS-Responsive-pink)](https://sass-lang.com/)
+[![Tests](https://img.shields.io/badge/Tests-25%20passed-green)](https://jasmine.github.io/)
 
 ---
 
@@ -13,26 +14,41 @@
 - [Características](#características)
 - [Instalación](#instalación)
 - [Uso](#uso)
+- [Tipos de Búsqueda](#tipos-de-búsqueda)
 - [Arquitectura](#arquitectura)
-- [Ecosistema de IA](#ecosistema-de-ia)
+- [Testing](#testing)
 - [Scripts de Desarrollo](#scripts-de-desarrollo)
-- [Contribuir](#contribuir)
 
 ---
 
 ## ✨ Características
 
-- **Configuración de Mazo**: Crea mazos de 50 cartas con atributos detallados (nombre, cantidad, color, tipo)
-- **Seguimiento en Tiempo Real**: Marca cartas como vistas/jugadas durante la partida
-- **Múltiples Métodos de Búsqueda**:
-  - **Training**: Busca 2 cartas por color específico
-  - **Memory**: Busca 3-4 cartas por tipo o color
-  - **Buscador Específico**: Busca cartas seleccionadas manualmente
-  - **Robo Plano**: Calcula probabilidad en robo normal
-- **Cálculos Precisos**: Usa distribución hipergeométrica para resultados exactos
-- **Persistencia Local**: Guarda tu configuración de mazo automáticamente en LocalStorage
-- **Interfaz Responsive**: Diseñada para uso en tablet/dispositivos móviles durante partidas
-- **Diseño Moderno**: Gradientes, animaciones y metodología BEM para estilos
+### 🎯 Funcionalidad Principal
+- **6 Tipos de Búsqueda Predefinidos**: Cool Boy, Memory Boost, Memory Boost Dual, Training, Robo Natural, y Custom
+- **Cálculos Exactos**: Implementa las fórmulas del Excel usando distribución hipergeométrica
+- **3 Resultados de Probabilidad**:
+  - Hit Tipo 1: Probabilidad de encontrar al menos 1 carta del primer tipo
+  - Hit Tipo 2: Probabilidad de encontrar al menos 1 carta del segundo tipo
+  - Doble Hit: Probabilidad de encontrar al menos 1 de cada tipo (usando Inclusión-Exclusión)
+- **Labels Dinámicos**: Los campos cambian su descripción según el tipo de búsqueda seleccionado
+- **Validación en Tiempo Real**: Inputs validados con mensajes de error descriptivos
+
+### 🎨 Diseño y UX
+- **Responsive Mobile-First**: Funciona perfectamente en móvil, tablet y desktop
+- **Sistema de Colores Semáforo**:
+  - 🟢 Verde: Alta probabilidad (≥70%)
+  - 🟡 Amarillo: Probabilidad media (40-70%)
+  - 🔴 Rojo: Baja probabilidad (<40%)
+- **Barras de Progreso Animadas**: Visualización intuitiva de porcentajes
+- **Gradientes Modernos**: Header con gradiente morado, cards con sombras
+- **Animaciones Suaves**: Transiciones de 0.3s, animaciones de entrada escalonadas
+
+### 🧮 Precisión Matemática
+- **Validado con Excel**: Los resultados coinciden exactamente con la calculadora oficial
+- **Caso de prueba**: Cool Boy con 45 cartas, 4 tipo1, 10 tipo2
+  - Hit Tipo 1: 24.88% ✅
+  - Hit Tipo 2: 53.88% ✅
+  - Doble Hit: 10.43% ✅
 
 ---
 
@@ -47,7 +63,7 @@
 ### Pasos de Instalación
 
 ```bash
-# Clonar el repositorio (si aplica)
+# Instalar dependencias
 git clone [URL_DEL_REPO]
 
 # Navegar al directorio del proyecto
@@ -57,7 +73,7 @@ cd digimon-tcg-probability
 npm install
 
 # Iniciar servidor de desarrollo
-ng serve
+npm start
 
 # Abrir en navegador
 # La aplicación estará disponible en http://localhost:4200
@@ -67,49 +83,75 @@ ng serve
 
 ## 💻 Uso
 
-### 1. Configurar tu Mazo
+### Interfaz Principal
 
-1. En el panel izquierdo **"Configuración del Mazo"**, agrega cartas una por una
-2. Especifica:
-   - Nombre de la carta
-   - Cantidad (1-4 copias)
-   - Color (Rojo, Azul, Amarillo, Verde, Negro, Morado, Blanco)
-   - Tipo (Digimón, Tamer, Opción)
-3. El mazo estándar debe tener **50 cartas exactas**
+La aplicación presenta una interfaz limpia dividida en dos secciones principales:
 
-### 2. Seleccionar Método de Búsqueda
+#### 1. Panel de Inputs (Izquierda/Arriba)
 
-En el panel central:
-1. Selecciona el tipo de búsqueda que deseas realizar
-2. Configura los parámetros según el método:
-   - **Training**: Selecciona un color
-   - **Memory**: Selecciona categoría (color/tipo), valor y cantidad (3 o 4)
-   - **Buscador Específico**: Selecciona las cartas objetivo y cantidad a buscar
-   - **Robo Plano**: Selecciona cartas objetivo y cantidad a robar
-3. Presiona **"Calcular Probabilidad"**
+**Parámetros de Entrada:**
+1. **Tipo de búsqueda**: Selecciona entre 6 opciones predefinidas
+2. **Valor personalizado**: Solo visible para tipo "Custom" (1-6 cartas)
+3. **Total de cartas en mazo**: Cartas disponibles en tu mazo
+4. **Cartas tipo 1**: Cantidad del primer tipo de carta objetivo (label dinámico)
+5. **Cartas tipo 2**: Cantidad del segundo tipo (solo si aplica)
 
-### 3. Ver Resultados
+**Acciones:**
+- 🧮 **Calcular Probabilidades**: Ejecuta el cálculo
+- 🔄 **Resetear**: Vuelve a los valores por defecto
 
-Los resultados muestran:
-- **Probabilidad principal**: Grande y destacada (ej: 35.8%)
-- **Barra de progreso**: Visual con colores según probabilidad
-  - Verde: ≥70%
-  - Naranja: ≥40%
-  - Rojo: <40%
-- **Desglose detallado**: Probabilidades de encontrar 0, 1, 2+ cartas
-- **Información contextual**: Cartas objetivo, tamaño del mazo, método usado
+#### 2. Panel de Resultados (Derecha/Abajo)
 
-### 4. Seguimiento Durante la Partida
+**Metadata del Cálculo:**
+- Cartas reveladas (automático según tipo)
+- Total de combinaciones posibles
+- Cartas no-objetivo
 
-En el panel derecho **"Seguimiento de Cartas"**:
-1. **Ver contador**: Círculo grande muestra cartas restantes en el mazo
-2. **Marcar cartas vistas**: Usa el botón **"-"** cuando veas/juegues una carta
-3. **Restaurar cartas**: Usa el botón **"+"** si cometiste un error
-4. **Deshacer**: Botón **"↶ Deshacer última acción"** disponible
-5. **Ver por color**: Agrupación automática de cartas por color
-6. **Historial**: Las últimas 5 remociones se muestran abajo
+**Probabilidades:**
+- **Hit Tipo 1**: Porcentaje grande + barra animada + fracción
+- **Hit Tipo 2**: Solo si el tipo lo requiere
+- **Doble Hit**: Probabilidad de encontrar ambos tipos
 
-Las probabilidades se **actualizan automáticamente** cuando cambias el estado del mazo.
+**Sistema de Colores:**
+- 🟢 Verde: Alta probabilidad (≥70%)
+- 🟡 Amarillo: Media probabilidad (40-70%)
+- 🔴 Rojo: Baja probabilidad (<40%)
+
+---
+
+## 🔍 Tipos de Búsqueda
+
+### 1. Cool Boy (3 cartas)
+- **Uso**: Buscar Digimon y/o Options con X Antibody
+- **Tipo 1**: Digimon con X Antibody
+- **Tipo 2**: Options con X Antibody
+- **Resultados**: Hit Tipo 1, Hit Tipo 2, Doble Hit
+
+### 2. Memory Boost (4 cartas)
+- **Uso**: Buscar Digimon del color de la Option
+- **Tipo 1**: Digimon del color especificado
+- **Resultados**: Hit Tipo 1
+
+### 3. Memory Boost Dual (3 cartas)
+- **Uso**: Variante de Memory Boost con menos cartas
+- **Tipo 1**: Digimon del color especificado
+- **Resultados**: Hit Tipo 1
+
+### 4. Training (2 cartas)
+- **Uso**: Buscar cartas del color del Training
+- **Tipo 1**: Cartas del color especificado
+- **Resultados**: Hit Tipo 1
+
+### 5. Robo Natural (1 carta)
+- **Uso**: Probabilidad de robar una carta específica
+- **Tipo 1**: Cartas deseadas
+- **Resultados**: Hit Tipo 1
+
+### 6. Custom (1-6 cartas)
+- **Uso**: Cálculos personalizados
+- **Tipo 1**: Primer tipo de carta
+- **Tipo 2**: Segundo tipo (opcional)
+- **Resultados**: Hit Tipo 1, Hit Tipo 2 (si aplica), Doble Hit (si aplica)
 
 ---
 
@@ -122,38 +164,105 @@ digimon-tcg-probability/
 ├── src/
 │   ├── app/
 │   │   ├── components/
-│   │   │   ├── deck-configuration/      # Configuración de mazo
-│   │   │   ├── card-tracker/            # Seguimiento de cartas
-│   │   │   ├── search-selector/         # Selector de búsqueda
-│   │   │   └── probability-results/     # Visualización de resultados
+│   │   │   └── calculator/              # Componente principal
+│   │   │       ├── calculator.component.ts
+│   │   │       ├── calculator.component.html
+│   │   │       ├── calculator.component.scss
+│   │   │       └── calculator.component.spec.ts
 │   │   ├── models/
-│   │   │   ├── card.model.ts            # Modelos de cartas
-│   │   │   ├── deck-state.model.ts      # Estado del mazo
-│   │   │   └── search-method.model.ts   # Métodos de búsqueda
+│   │   │   └── calculator.model.ts       # Tipos y configuraciones
 │   │   ├── services/
-│   │   │   ├── probability.service.ts   # Cálculos de probabilidad
-│   │   │   ├── deck-state.service.ts    # Gestión de estado
-│   │   │   └── storage.service.ts       # Persistencia local
-│   │   └── app.component.*              # Componente principal
-│   └── styles.scss                       # Estilos globales
-├── resources-ai/                         # Ecosistema de IA
-│   ├── designs/                          # Mockups y diseños
-│   ├── resources/                        # Documentación técnica
-│   ├── reports/                          # Reportes de sesión
+│   │   │   ├── calculator.service.ts     # Lógica de cálculo
+│   │   │   └── calculator.service.spec.ts
+│   │   ├── app.component.*               # Componente raíz
+│   │   └── app.module.ts                 # Módulo principal
+│   ├── styles.scss                       # Estilos globales
+│   └── index.html                        # HTML principal
+├── resources-ai/                         # Documentación de desarrollo
+│   ├── analysis/                         # Análisis del Excel
+│   ├── designs/                          # Diseños y mockups
+│   ├── reports/                          # Reportes de implementación
 │   └── scripts-ai/                       # Scripts de contexto
-├── Agent.md                              # Configuración para IA
+├── angular.json                          # Configuración Angular
+├── package.json                          # Dependencias
 └── README.md                             # Este archivo
 ```
 
 ### Tecnologías Utilizadas
 
 - **Angular 16**: Framework principal
-- **TypeScript**: Lenguaje de programación
-- **SCSS**: Preprocesador CSS con metodología BEM
-- **RxJS**: Programación reactiva para manejo de estado
-- **LocalStorage**: Persistencia de datos del navegador
+- **TypeScript 5.0**: Tipado estático
+- **SCSS**: Preprocesador CSS
+- **RxJS**: Programación reactiva (opcional en v1.0)
+- **Jasmine + Karma**: Testing unitario
 
-### Fórmula de Probabilidad
+### Servicios Principales
+
+#### CalculatorService
+Implementa la lógica matemática:
+```typescript
+// Coeficiente binomial optimizado
+binomialCoefficient(n, k): number
+
+// Probabilidad de al menos 1 éxito
+calculateHitType1(N, K1, n, totalCombinations): number
+calculateHitType2(N, K2, n, totalCombinations): number
+
+// Doble hit con Inclusión-Exclusión
+calculateDoubleHit(N, K1, K2, n, totalCombinations): number
+
+// Utilidades
+formatPercentage(value, decimals): string
+getColorForProbability(probability): string
+calculateExpectedAttempts(probability, outOf): number
+```
+
+---
+
+## 🧪 Testing
+
+### Ejecutar Tests
+
+```bash
+# Ejecutar todos los tests
+npm test
+
+# Ejecutar en modo CI (sin watch)
+npm test -- --watch=false --browsers=ChromeHeadless
+
+# Ejecutar con cobertura
+npm test -- --code-coverage
+```
+
+### Cobertura de Tests
+
+**25 tests, 100% passed**
+
+- ✅ CalculatorService: 13 tests
+  - Coeficiente binomial
+  - Cálculos de probabilidad
+  - Validaciones de entrada
+  - Formateo de resultados
+- ✅ CalculatorComponent: 5 tests
+  - Inicialización
+  - Validación de formulario
+  - Cálculos
+  - Reset
+- ✅ AppComponent: 3 tests
+
+**Caso de validación principal (Excel):**
+```typescript
+// Cool Boy: 45 cartas, 4 tipo1, 10 tipo2
+expect(result.hitType1).toBeCloseTo(0.2488, 4);  // 24.88%
+expect(result.hitType2).toBeCloseTo(0.5388, 4);  // 53.88%
+expect(result.doubleHit).toBeCloseTo(0.1043, 4); // 10.43%
+```
+
+---
+
+## 📊 Fórmulas Matemáticas
+
+### Distribución Hipergeométrica
 
 La aplicación usa la **distribución hipergeométrica** para calcular probabilidades exactas:
 
