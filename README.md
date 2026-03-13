@@ -1,4 +1,4 @@
-# Digimon TCG - Calculadora de Probabilidades
+# ME Calculadora de Probabilidades - Digimon TCG
 
 > Una aplicación web desarrollada en Angular que implementa las fórmulas exactas de la calculadora Excel de probabilidades hipergeométricas para Digimon Trading Card Game.
 

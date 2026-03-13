@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Digimon TCG - Calculadora de Probabilidades';
+  title = 'ME Calculadora de Probabilidades - Digimon TCG';
 }

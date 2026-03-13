@@ -17,7 +17,7 @@ describe('AppComponent', () => {
   it('should have the correct title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Digimon TCG - Calculadora de Probabilidades');
+    expect(app.title).toEqual('ME Calculadora de Probabilidades - Digimon TCG');
   });
 
   it('should render calculator component', () => {

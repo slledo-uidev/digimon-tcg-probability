@@ -75,7 +75,7 @@
 <!-- src/index.html -->
 <head>
   <meta charset="utf-8">
-  <title>Digimon TCG - Calculadora de Probabilidades</title>
+  <title>ME Calculadora de Probabilidades - Digimon TCG</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Calculadora oficial de probabilidades hipergeométricas para Digimon Trading Card Game. Calcula tus odds en búsquedas con 6 tipos predefinidos.">
@@ -84,13 +84,13 @@
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Digimon TCG - Calculadora de Probabilidades">
+  <meta property="og:title" content="ME Calculadora de Probabilidades - Digimon TCG">
   <meta property="og:description" content="Calcula probabilidades exactas para búsquedas en Digimon TCG">
   <meta property="og:image" content="/assets/og-image.png">
   
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Digimon TCG - Calculadora de Probabilidades">
+  <meta name="twitter:title" content="ME Calculadora de Probabilidades - Digimon TCG">
   <meta name="twitter:description" content="Calcula probabilidades exactas para búsquedas en Digimon TCG">
   
   <!-- Favicon -->
