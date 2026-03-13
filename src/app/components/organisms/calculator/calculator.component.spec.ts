@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CalculatorComponent } from './calculator.component';
 import { CalculatorService } from '../../../services/calculator.service';
+import { ThemeService } from '../../../services/theme.service';
 
 describe('CalculatorComponent', () => {
   let component: CalculatorComponent;
@@ -12,7 +14,8 @@ describe('CalculatorComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ CalculatorComponent ],
       imports: [ ReactiveFormsModule ],
-      providers: [ CalculatorService ]
+      providers: [ CalculatorService, ThemeService ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
 

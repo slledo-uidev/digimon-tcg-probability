@@ -1,12 +1,17 @@
 {
   "name": "digimon-tcg-probability",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Calculadora de probabilidades hipergeométricas para Digimon Trading Card Game",
+  "author": "LledoSL",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test:ci": "ng test --watch=false --code-coverage --browsers=ChromeHeadless"
   },
   "private": true,
   "dependencies": {
