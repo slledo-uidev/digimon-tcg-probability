@@ -1,0 +1,196 @@
+@import '../../../scss/d-prob-theme-tokens';
+
+.calculator-results {
+  order: 2;
+  position: relative;
+}
+
+.results {
+  &__empty {
+    background: var(--theme-color-bg-elevated);
+    border-radius: $theme-radius-lg;
+    padding: $theme-spacing-12 $theme-spacing-8;
+    text-align: center;
+    box-shadow: var(--theme-shadow-md);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $theme-spacing-6;
+    animation: slideIn 0.5s ease-out;
+  }
+
+  &__header {
+    background: var(--theme-color-bg-elevated);
+    border-radius: $theme-radius-lg;
+    padding: $theme-spacing-6;
+    box-shadow: var(--theme-shadow-sm);
+  }
+
+  &__title {
+    font-size: $theme-font-size-2xl;
+    color: var(--theme-color-text-primary);
+    margin: 0 0 $theme-spacing-4 0;
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: $theme-spacing-2;
+    font-size: $theme-font-size-sm;
+
+    @media (min-width: $theme-breakpoint-sm) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: $theme-spacing-4;
+    }
+  }
+
+  &__info {
+    background: rgba(52, 152, 219, 0.05);
+    border: 2px dashed var(--theme-color-primary);
+    border-radius: $theme-radius-lg;
+    padding: $theme-spacing-6;
+  }
+}
+
+.empty {
+  &__icon {
+    font-size: $theme-font-size-6xl;
+    margin-bottom: $theme-spacing-4;
+    opacity: $theme-opacity-50;
+  }
+
+  &__title {
+    font-size: $theme-font-size-2xl;
+    color: var(--theme-color-text-primary);
+    margin: 0 0 $theme-spacing-2 0;
+  }
+
+  &__text {
+    color: var(--theme-color-text-secondary);
+    line-height: $theme-line-height-relaxed;
+    max-width: 400px;
+    margin: 0;
+  }
+}
+
+.meta {
+  &__item {
+    color: var(--theme-color-text-secondary);
+
+    strong {
+      color: var(--theme-color-text-primary);
+    }
+  }
+}
+
+.result-cards {
+  display: flex;
+  flex-direction: column;
+  gap: $theme-spacing-6;
+
+  app-result-card {
+    &:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+  }
+}
+
+.info {
+  &__title {
+    font-size: $theme-font-size-lg;
+    color: var(--theme-color-text-primary);
+    margin: 0 0 $theme-spacing-4 0;
+  }
+
+  &__list {
+    margin: 0;
+    padding-left: $theme-spacing-6;
+    color: var(--theme-color-text-secondary);
+    line-height: $theme-line-height-relaxed;
+
+    strong {
+      color: var(--theme-color-text-primary);
+    }
+  }
+}
+
+// ============================================
+// MOBILE: BOTÓN EXPANDIR A ANCHO COMPLETO
+// ============================================
+.mobile-expand-btn {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  padding: $theme-spacing-5 $theme-spacing-4;
+  background: var(--theme-gradient-primary);
+  color: $color-white;
+  border: none;
+  border-radius: $theme-radius-lg $theme-radius-lg 0 0;
+  font-size: $theme-font-size-lg;
+  font-weight: $theme-font-weight-semibold;
+  cursor: pointer;
+  box-shadow: 0 -4px 20px rgba($color-black, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $theme-spacing-3;
+  
+  // Animación de entrada desde abajo
+  animation: slideUpFromBottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &__icon {
+    font-size: $theme-font-size-2xl;
+    display: flex;
+    align-items: center;
+  }
+
+  &__text {
+    font-size: $theme-font-size-base;
+    letter-spacing: 0.3px;
+  }
+
+  &:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+// Animación de slide up desde el bottom
+@keyframes slideUpFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

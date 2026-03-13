@@ -1,0 +1,214 @@
+<section class="calculator-form" id="form-section">
+  <div class="calculator-form__card">
+    <div class="calculator-form__header">
+      <h2 class="calculator-form__title">Parámetros de Entrada</h2>
+      <button 
+        *ngIf="isMobile" 
+        type="button"
+        class="calculator-form__toggle" 
+        (click)="onToggle()"
+        [attr.aria-label]="isFormExpanded ? 'Colapsar formulario' : 'Expandir formulario'"
+      >
+        {{ isFormExpanded ? '▼' : '▶' }}
+      </button>
+    </div>
+    
+    <form 
+      [formGroup]="calculatorForm" 
+      (ngSubmit)="onSubmit()" 
+      class="calculator-form__form"
+      [class.calculator-form__form--collapsed]="isMobile && !isFormExpanded"
+    >
+      
+      <!-- 1. Tipo de búsqueda -->
+      <div class="form__group">
+        <label for="searchType" class="form__label">
+          <span class="form__label-text">Tipo de búsqueda</span>
+        </label>
+        <select 
+          id="searchType" 
+          formControlName="searchType" 
+          class="form__select"
+          [class.form__select--invalid]="isFieldInvalid('searchType')"
+        >
+          <option *ngFor="let type of searchTypes" [value]="type">{{ type }}</option>
+        </select>
+        <small class="form__hint">{{ getCurrentConfig().description }}</small>
+      </div>
+
+      <!-- 2. Valor personalizado - Solo visible si es Custom -->
+      <div class="form__group" *ngIf="isCustomType()">
+        <label for="customValue" class="form__label">
+          <span class="form__label-text">Número de cartas a revelar</span>
+        </label>
+        <select 
+          id="customValue" 
+          formControlName="customValue" 
+          class="form__select"
+        >
+          <option *ngFor="let val of customValues" [value]="val">{{ val }}</option>
+        </select>
+      </div>
+
+      <!-- 3. Total de cartas en mazo -->
+      <div class="form__group">
+        <label for="totalCardsInDeck" class="form__label">
+          <span class="form__label-text">Total de cartas en mazo</span>
+        </label>
+        <div class="input-group">
+          <button 
+            type="button" 
+            class="input-group__btn input-group__btn--decrement"
+            (click)="decrement('totalCardsInDeck')"
+            [disabled]="isAtMin('totalCardsInDeck')"
+            aria-label="Decrementar"
+          >−</button>
+          <input 
+            type="number" 
+            id="totalCardsInDeck" 
+            formControlName="totalCardsInDeck"
+            class="form__input"
+            [class.form__input--invalid]="isFieldInvalid('totalCardsInDeck')"
+            min="1"
+            max="100"
+            placeholder="45"
+          />
+          <button 
+            type="button" 
+            class="input-group__btn input-group__btn--increment"
+            (click)="increment('totalCardsInDeck')"
+            [disabled]="isAtMax('totalCardsInDeck')"
+            aria-label="Incrementar"
+          >+</button>
+        </div>
+        <small class="form__hint">Cartas totales disponibles + Securities desconocidas</small>
+        <small class="form__error" *ngIf="isFieldInvalid('totalCardsInDeck')">
+          {{ getFieldError('totalCardsInDeck') }}
+        </small>
+      </div>
+
+      <!-- 4. Cartas tipo 1 -->
+      <div class="form__group">
+        <label for="type1Cards" class="form__label">
+          <span class="form__label-text">{{ getCurrentConfig().type1Label }}</span>
+        </label>
+        <div class="input-group">
+          <button 
+            type="button" 
+            class="input-group__btn input-group__btn--decrement"
+            (click)="decrement('type1Cards')"
+            [disabled]="isAtMin('type1Cards')"
+            aria-label="Decrementar"
+          >−</button>
+          <input 
+            type="number" 
+            id="type1Cards" 
+            formControlName="type1Cards"
+            class="form__input"
+            [class.form__input--invalid]="isFieldInvalid('type1Cards')"
+            min="0"
+            placeholder="4"
+          />
+          <button 
+            type="button" 
+            class="input-group__btn input-group__btn--increment"
+            (click)="increment('type1Cards')"
+            [disabled]="isAtMax('type1Cards')"
+            aria-label="Incrementar"
+          >+</button>
+        </div>
+        <small class="form__error" *ngIf="isFieldInvalid('type1Cards')">
+          {{ getFieldError('type1Cards') }}
+        </small>
+      </div>
+
+      <!-- 5. Cartas tipo 2 - Solo visible si el tipo lo requiere -->
+      <div class="form__group" *ngIf="showType2Input()">
+        <label for="type2Cards" class="form__label">
+          <span class="form__label-text">{{ getCurrentConfig().type2Label }}</span>
+        </label>
+        <div class="input-group">
+          <button 
+            type="button" 
+            class="input-group__btn input-group__btn--decrement"
+            (click)="decrement('type2Cards')"
+            [disabled]="isAtMin('type2Cards')"
+            aria-label="Decrementar"
+          >−</button>
+          <input 
+            type="number" 
+            id="type2Cards" 
+            formControlName="type2Cards"
+            class="form__input"
+            [class.form__input--invalid]="isFieldInvalid('type2Cards')"
+            min="0"
+            placeholder="10"
+          />
+          <button 
+            type="button" 
+            class="input-group__btn input-group__btn--increment"
+            (click)="increment('type2Cards')"
+            [disabled]="isAtMax('type2Cards')"
+            aria-label="Incrementar"
+          >+</button>
+        </div>
+        <small class="form__hint">Dejar en 0 si no aplica</small>
+      </div>
+
+      <!-- 6. Overlap - Cartas que cumplen AMBAS condiciones -->
+      <div class="form__group" *ngIf="showType2Input()">
+        <label for="overlap" class="form__label">
+          <span class="form__label-text">Overlap (ambas condiciones)</span>
+        </label>
+        <div class="input-group">
+          <button 
+            type="button" 
+            class="input-group__btn input-group__btn--decrement"
+            (click)="decrement('overlap')"
+            [disabled]="isAtMin('overlap')"
+            aria-label="Decrementar"
+          >−</button>
+          <input 
+            type="number" 
+            id="overlap" 
+            formControlName="overlap"
+            class="form__input"
+            [class.form__input--invalid]="isFieldInvalid('overlap')"
+            min="0"
+            placeholder="0"
+          />
+          <button 
+            type="button" 
+            class="input-group__btn input-group__btn--increment"
+            (click)="increment('overlap')"
+            [disabled]="isAtMax('overlap')"
+            aria-label="Incrementar"
+          >+</button>
+        </div>
+        <small class="form__hint">Número de cartas que cumplen AMBAS condiciones. Debe ser ≤ min(tipo1, tipo2)</small>
+        <small class="form__error" *ngIf="isFieldInvalid('overlap')">
+          {{ getFieldError('overlap') }}
+        </small>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="form__actions">
+        <button 
+          type="submit" 
+          class="btn btn--primary"
+          [disabled]="calculatorForm.invalid"
+        >
+          <span class="btn__text">Calcular Probabilidades</span>
+        </button>
+        <button 
+          type="button" 
+          class="btn btn--secondary"
+          (click)="onReset()"
+        >
+          <span class="btn__text">Resetear</span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</section>

@@ -1,12 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
-import { CalculatorComponent } from './components/calculator/calculator.component';
 
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent, CalculatorComponent],
-    imports: [ReactiveFormsModule]
+    declarations: [AppComponent],
+    schemas: [NO_ERRORS_SCHEMA]
   }));
 
   it('should create the app', () => {

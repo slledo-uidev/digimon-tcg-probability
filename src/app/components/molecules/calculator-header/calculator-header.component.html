@@ -1,0 +1,17 @@
+<header class="calculator-header">
+  <div class="calculator-header__content">
+    <div class="calculator-header__text">
+      <h1 class="calculator-header__title">{{ title }}</h1>
+      <p class="calculator-header__description">{{ description }}</p>
+    </div>
+    <button 
+      class="calculator-header__theme-toggle"
+      (click)="toggleTheme()"
+      [attr.aria-label]="(isDarkMode$ | async) ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+      type="button"
+    >
+      <span class="theme-toggle__icon theme-toggle__icon--sun" *ngIf="!(isDarkMode$ | async)">☀️</span>
+      <span class="theme-toggle__icon theme-toggle__icon--moon" *ngIf="isDarkMode$ | async">🌙</span>
+    </button>
+  </div>
+</header>

@@ -1,0 +1,40 @@
+@import '../../../scss/d-prob-theme-tokens';
+
+// Variables CSS personalizadas (ahora en theme-variables.scss)
+:host {
+  display: block;
+}
+
+// ============================================
+// CALCULATOR (Orchestrator Component)
+// ============================================
+.calculator {
+  min-height: 100vh;
+  background: var(--theme-color-bg-base);
+  padding: $theme-spacing-4;
+  transition: background-color $theme-transition-base;
+
+  @media (min-width: $theme-breakpoint-md) {
+    padding: $theme-spacing-8;
+  }
+
+  &__container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  // ============================================
+  // MAIN LAYOUT (Grid for molecules)
+  // ============================================
+  &__main {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $theme-spacing-6;
+    margin-bottom: $theme-spacing-8;
+
+    @media (min-width: $theme-breakpoint-lg) {
+      grid-template-columns: 1fr 1fr;
+      gap: $theme-spacing-8;
+    }
+  }
+}

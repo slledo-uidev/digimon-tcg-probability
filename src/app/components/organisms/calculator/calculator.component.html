@@ -1,0 +1,34 @@
+<div class="calculator">
+  <div class="calculator__container">
+    
+    <!-- Header -->
+    <app-calculator-header></app-calculator-header>
+
+    <!-- Panel principal: Inputs y Resultados lado a lado en desktop -->
+    <div class="calculator__main">
+      
+      <!-- Formulario de parámetros -->
+      <app-calculator-form
+        [calculatorForm]="calculatorForm"
+        [isMobile]="isMobile"
+        [isFormExpanded]="isFormExpanded"
+        [searchTypes]="searchTypes"
+        [customValues]="customValues"
+        (calculate)="calculate()"
+        (reset)="reset()"
+        (toggleForm)="toggleForm()"
+      ></app-calculator-form>
+
+      <!-- Sección de resultados -->
+      <app-calculator-results
+        [result]="result"
+        [isMobile]="isMobile"
+        [isFormExpanded]="isFormExpanded"
+        [currentConfig]="getCurrentConfig()"
+        (openFormAndScroll)="openFormAndScroll()"
+      ></app-calculator-results>
+
+    </div>
+
+  </div>
+</div>

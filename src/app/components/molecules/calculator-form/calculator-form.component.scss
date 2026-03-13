@@ -1,0 +1,287 @@
+@import '../../../scss/d-prob-theme-tokens';
+
+.calculator-form {
+  order: 1;
+
+  &__card {
+    background: var(--theme-color-bg-elevated);
+    border-radius: $theme-radius-lg;
+    padding: $theme-card-padding;
+    box-shadow: var(--theme-shadow-md);
+    transition: background-color $theme-transition-base, box-shadow $theme-transition-base;
+  
+    @media (min-width: $theme-breakpoint-md) {
+      padding: $theme-card-padding-lg;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $theme-spacing-6;
+    padding-bottom: $theme-spacing-4;
+    border-bottom: 3px solid var(--theme-color-primary);
+  }
+  
+  &__title {
+    font-size: $theme-font-size-2xl;
+    color: var(--theme-color-text-primary);
+    margin: 0;
+  }
+  
+  &__toggle {
+    background: none;
+    border: none;
+    color: var(--theme-color-primary);
+    font-size: $theme-font-size-2xl;
+    cursor: pointer;
+    padding: $theme-spacing-2;
+    line-height: 1;
+    transition: $theme-transition-base;
+    user-select: none;
+  
+    &:hover {
+      color: var(--theme-color-primary-hover);
+      transform: scale(1.1);
+    }
+  
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $theme-spacing-6;
+    max-height: 5000px;
+    overflow: visible;
+    opacity: 1;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+  
+    &--collapsed {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+.form {
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: $theme-spacing-2;
+  }
+  
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: $theme-font-weight-semibold;
+    color: var(--theme-color-text-primary);
+    font-size: $theme-font-size-base;
+  }
+  
+  &__label-text {
+    flex: 1;
+  }
+  
+  &__input,
+  &__select {
+    width: 100%;
+    padding: $theme-input-padding-y $theme-input-padding-x;
+    border: $theme-input-border-width solid $theme-color-border-input;
+    border-radius: $theme-input-border-radius;
+    font-size: $theme-input-font-size;
+    font-family: inherit;
+    transition: $theme-transition-base;
+    background: var(--theme-color-bg-input);
+    
+    // En modo oscuro, asegurar que el texto sea oscuro
+    body.dark-theme & {
+      color: $color-gray-900;
+      
+      &::placeholder {
+        color: $color-gray-500;
+      }
+      
+      // Opciones del select en modo oscuro
+      option {
+        background: $color-white;
+        color: $color-gray-900;
+      }
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--theme-color-primary);
+      box-shadow: $theme-shadow-focus-primary;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: $theme-color-border-input-hover;
+    }
+
+    &:disabled {
+      background: $theme-color-bg-disabled;
+      cursor: not-allowed;
+      opacity: $theme-opacity-60;
+    }
+
+    &--invalid {
+      border-color: var(--theme-color-danger);
+
+      &:focus {
+        box-shadow: $theme-shadow-focus-danger;
+      }
+    }
+  }
+
+  &__hint {
+    font-size: $theme-font-size-sm;
+    color: var(--theme-color-text-secondary);
+    font-style: italic;
+  }
+
+  &__error {
+    font-size: $theme-font-size-sm;
+    color: var(--theme-color-danger);
+    font-weight: $theme-font-weight-medium;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: $theme-spacing-3;
+    margin-top: $theme-spacing-4;
+
+    @media (min-width: $theme-breakpoint-sm) {
+      flex-direction: row;
+    }
+  }
+}
+
+// Ocultar spinners nativos del input type="number"
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+// Input group con botones +/-
+.input-group {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+
+  .form__input {
+    border-radius: 0;
+    flex: 1;
+    text-align: center;
+    min-width: 0;
+  }
+
+  &__btn {
+    width: 40px;
+    height: auto;
+    flex-shrink: 0;
+    background: var(--theme-color-primary);
+    color: $color-white;
+    border: none;
+    font-size: $theme-font-size-xl;
+    font-weight: $theme-font-weight-bold;
+    cursor: pointer;
+    transition: $theme-transition-base;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+
+    @media (max-width: $theme-breakpoint-sm) {
+      width: 48px;
+      font-size: $theme-font-size-2xl;
+    }
+  
+    &:hover:not(:disabled) {
+      background: var(--theme-color-primary-hover);
+      transform: scale(1.05);
+    }
+  
+    &:active:not(:disabled) {
+      transform: scale(0.95);
+    }
+  
+    &:disabled {
+      opacity: $theme-opacity-50;
+      cursor: not-allowed;
+      background: $theme-color-text-tertiary;
+    }
+  
+    &--decrement {
+      border-radius: $theme-input-border-radius 0 0 $theme-input-border-radius;
+    }
+  
+    &--increment {
+      border-radius: 0 $theme-input-border-radius $theme-input-border-radius 0;
+    }
+  }
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $theme-spacing-2;
+  padding: $theme-button-padding-y $theme-button-padding-x;
+  border: none;
+  border-radius: $theme-button-border-radius;
+  font-size: $theme-button-font-size;
+  font-weight: $theme-button-font-weight;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  flex: 1;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: $theme-opacity-50;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  &--primary {
+    background: var(--theme-gradient-success);
+    color: $color-white;
+  }
+
+  &--secondary {
+    background: $theme-color-text-tertiary;
+    color: $color-white;
+
+    &:hover:not(:disabled) {
+      background: $theme-color-text-secondary;
+    }
+  }
+
+  &__text {
+    white-space: nowrap;
+  }
+}
