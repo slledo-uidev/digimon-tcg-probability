@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { CalculatorFormComponent } from './calculator-form.component';
 import { SearchType } from '../../../models/calculator.model';
+import { ChevronDown, ChevronRight, LucideAngularModule, Minus, Plus } from 'lucide-angular';
 
 describe('CalculatorFormComponent', () => {
   let component: CalculatorFormComponent;
@@ -11,7 +12,15 @@ describe('CalculatorFormComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ CalculatorFormComponent ],
-      imports: [ ReactiveFormsModule ]
+      imports: [
+        ReactiveFormsModule,
+        LucideAngularModule.pick({
+          ChevronDown,
+          ChevronRight,
+          Plus,
+          Minus
+        })
+      ]
     })
     .compileComponents();
 

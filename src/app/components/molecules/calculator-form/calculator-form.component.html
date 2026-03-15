@@ -9,7 +9,13 @@
         (click)="onToggle()"
         [attr.aria-label]="isFormExpanded ? 'Colapsar formulario' : 'Expandir formulario'"
       >
-        {{ isFormExpanded ? '▼' : '▶' }}
+        <lucide-icon
+          class="calculator-form__toggle-icon"
+          [img]="isFormExpanded ? chevronUpIcon : chevronDownIcon"
+          [size]="26"
+          [strokeWidth]="2.25"
+          aria-hidden="true"
+        ></lucide-icon>
       </button>
     </div>
     
@@ -25,14 +31,23 @@
         <label for="searchType" class="form__label">
           <span class="form__label-text">Tipo de búsqueda</span>
         </label>
-        <select 
-          id="searchType" 
-          formControlName="searchType" 
-          class="form__select"
-          [class.form__select--invalid]="isFieldInvalid('searchType')"
-        >
-          <option *ngFor="let type of searchTypes" [value]="type">{{ type }}</option>
-        </select>
+        <div class="form__select-wrapper">
+          <select 
+            id="searchType" 
+            formControlName="searchType" 
+            class="form__select"
+            [class.form__select--invalid]="isFieldInvalid('searchType')"
+          >
+            <option *ngFor="let type of searchTypes" [value]="type">{{ type }}</option>
+          </select>
+          <lucide-icon
+            class="form__select-icon"
+            [img]="chevronDownIcon"
+            [size]="18"
+            [strokeWidth]="2"
+            aria-hidden="true"
+          ></lucide-icon>
+        </div>
         <small class="form__hint">{{ getCurrentConfig().description }}</small>
       </div>
 
@@ -41,13 +56,22 @@
         <label for="customValue" class="form__label">
           <span class="form__label-text">Número de cartas a revelar</span>
         </label>
-        <select 
-          id="customValue" 
-          formControlName="customValue" 
-          class="form__select"
-        >
-          <option *ngFor="let val of customValues" [value]="val">{{ val }}</option>
-        </select>
+        <div class="form__select-wrapper">
+          <select 
+            id="customValue" 
+            formControlName="customValue" 
+            class="form__select"
+          >
+            <option *ngFor="let val of customValues" [value]="val">{{ val }}</option>
+          </select>
+          <lucide-icon
+            class="form__select-icon"
+            [img]="chevronDownIcon"
+            [size]="18"
+            [strokeWidth]="2"
+            aria-hidden="true"
+          ></lucide-icon>
+        </div>
       </div>
 
       <!-- 3. Total de cartas en mazo -->
@@ -62,7 +86,9 @@
             (click)="decrement('totalCardsInDeck')"
             [disabled]="isAtMin('totalCardsInDeck')"
             aria-label="Decrementar"
-          >−</button>
+          >
+            <lucide-icon class="input-group__icon" [img]="minusIcon" [size]="18" aria-hidden="true"></lucide-icon>
+          </button>
           <input 
             type="number" 
             id="totalCardsInDeck" 
@@ -79,7 +105,9 @@
             (click)="increment('totalCardsInDeck')"
             [disabled]="isAtMax('totalCardsInDeck')"
             aria-label="Incrementar"
-          >+</button>
+          >
+            <lucide-icon class="input-group__icon" [img]="plusIcon" [size]="18" aria-hidden="true"></lucide-icon>
+          </button>
         </div>
         <small class="form__hint">Cartas totales disponibles + Securities desconocidas</small>
         <small class="form__error" *ngIf="isFieldInvalid('totalCardsInDeck')">
@@ -99,7 +127,9 @@
             (click)="decrement('type1Cards')"
             [disabled]="isAtMin('type1Cards')"
             aria-label="Decrementar"
-          >−</button>
+          >
+            <lucide-icon class="input-group__icon" [img]="minusIcon" [size]="18" aria-hidden="true"></lucide-icon>
+          </button>
           <input 
             type="number" 
             id="type1Cards" 
@@ -115,7 +145,9 @@
             (click)="increment('type1Cards')"
             [disabled]="isAtMax('type1Cards')"
             aria-label="Incrementar"
-          >+</button>
+          >
+            <lucide-icon class="input-group__icon" [img]="plusIcon" [size]="18" aria-hidden="true"></lucide-icon>
+          </button>
         </div>
         <small class="form__error" *ngIf="isFieldInvalid('type1Cards')">
           {{ getFieldError('type1Cards') }}
@@ -134,7 +166,9 @@
             (click)="decrement('type2Cards')"
             [disabled]="isAtMin('type2Cards')"
             aria-label="Decrementar"
-          >−</button>
+          >
+            <lucide-icon class="input-group__icon" [img]="minusIcon" [size]="18" aria-hidden="true"></lucide-icon>
+          </button>
           <input 
             type="number" 
             id="type2Cards" 
@@ -150,7 +184,9 @@
             (click)="increment('type2Cards')"
             [disabled]="isAtMax('type2Cards')"
             aria-label="Incrementar"
-          >+</button>
+          >
+            <lucide-icon class="input-group__icon" [img]="plusIcon" [size]="18" aria-hidden="true"></lucide-icon>
+          </button>
         </div>
         <small class="form__hint">Dejar en 0 si no aplica</small>
       </div>
@@ -167,7 +203,9 @@
             (click)="decrement('overlap')"
             [disabled]="isAtMin('overlap')"
             aria-label="Decrementar"
-          >−</button>
+          >
+            <lucide-icon class="input-group__icon" [img]="minusIcon" [size]="18" aria-hidden="true"></lucide-icon>
+          </button>
           <input 
             type="number" 
             id="overlap" 
@@ -183,7 +221,9 @@
             (click)="increment('overlap')"
             [disabled]="isAtMax('overlap')"
             aria-label="Incrementar"
-          >+</button>
+          >
+            <lucide-icon class="input-group__icon" [img]="plusIcon" [size]="18" aria-hidden="true"></lucide-icon>
+          </button>
         </div>
         <small class="form__hint">Número de cartas que cumplen AMBAS condiciones. Debe ser ≤ min(tipo1, tipo2)</small>
         <small class="form__error" *ngIf="isFieldInvalid('overlap')">
