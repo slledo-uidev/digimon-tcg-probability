@@ -3,7 +3,7 @@
  */
 
 export enum SearchType {
-  COOL_BOY = 'Cool Boy',
+  COOL_BOY = 'Buscador por arquetipo',
   MEMORY_BOOST = 'Memory Boost',
   MEMORY_BOOST_DUAL = 'Memory Boost Dual',
   TRAINING = 'Training',
@@ -14,6 +14,7 @@ export enum SearchType {
 export interface CalculatorInput {
   searchType: SearchType;
   customValue?: number; // Solo para CUSTOM (1-6)
+  drawCount?: number; // Solo para ROBO_NATURAL (≥1, default: 1)
   totalCardsInDeck: number; // B3: Total de cartas en mazo
   type1Cards: number; // B4: Cartas tipo 1
   type2Cards: number; // B5: Cartas tipo 2 (opcional)
@@ -47,10 +48,10 @@ export const SEARCH_TYPE_CONFIGS: Record<SearchType, SearchTypeConfig> = {
   [SearchType.COOL_BOY]: {
     type: SearchType.COOL_BOY,
     cardsRevealed: 3,
-    type1Label: 'Número de cartas X Antibody Digimon restantes en Deck',
-    type2Label: 'Número de Option con trait X Antibody restantes en Deck',
+    type1Label: 'Número de cartas restantes del Tipo 1 en Deck',
+    type2Label: 'Número de cartas restantes del Tipo 2 en Deck',
     showType2: true,
-    description: 'Buscar Digimon y/o Options con X Antibody (3 cartas)'
+    description: 'Buscar cartas por arquetipos específicos. Tipo 1 y/o Tipo 2'
   },
   [SearchType.MEMORY_BOOST]: {
     type: SearchType.MEMORY_BOOST,
@@ -75,10 +76,10 @@ export const SEARCH_TYPE_CONFIGS: Record<SearchType, SearchTypeConfig> = {
   },
   [SearchType.ROBO_NATURAL]: {
     type: SearchType.ROBO_NATURAL,
-    cardsRevealed: 1,
+    cardsRevealed: 1, // Será sobrescrito por drawCount
     type1Label: 'Número de cartas deseadas en el Deck',
     showType2: false,
-    description: 'Probabilidad de robar una carta específica'
+    description: 'Probabilidad de robar carta(s) específica(s)'
   },
   [SearchType.CUSTOM]: {
     type: SearchType.CUSTOM,

@@ -19,7 +19,7 @@ Se ha completado exitosamente la refactorización de la aplicación Digimon TCG 
 ## 🎯 Cambios Implementados
 
 ### 1. **Nuevo Modelo de Datos** (`calculator.model.ts`)
-- 6 tipos de búsqueda predefinidos (Cool Boy, Memory Boost, Training, etc.)
+- 6 tipos de búsqueda predefinidos (Buscador por arquetipo, Memory Boost, Training, etc.)
 - Labels dinámicos según el tipo de búsqueda
 - Configuración automática de cartas reveladas
 - Soporte para búsquedas personalizadas (1-6 cartas)
@@ -39,7 +39,7 @@ calculateDoubleHit(N, K1, K2, n, totalCombinations)
 ```
 
 **Validado con casos de prueba del Excel:**
-- Cool Boy (3 cartas): 24.88%, 53.88%, 10.43% ✅
+- Buscador por arquetipo (3 cartas): 24.88%, 53.88%, 10.43% ✅
 - Training (2 cartas): Cálculo correcto ✅
 - Memory Boost (4 cartas): Cálculo correcto ✅
 
@@ -122,7 +122,7 @@ calculateDoubleHit(N, K1, K2, n, totalCombinations)
 ```
 CalculatorService:
 ✅ Coeficiente binomial (14,190 para C(45,3))
-✅ Caso Excel: Cool Boy (24.88%, 53.88%, 10.43%)
+✅ Caso Excel: Buscador por arquetipo (24.88%, 53.88%, 10.43%)
 ✅ Training (2 cartas reveladas)
 ✅ Memory Boost (4 cartas reveladas)
 ✅ Custom (1-6 cartas)
@@ -248,10 +248,10 @@ npm run build
 
 ## 📊 Ejemplo de Caso de Uso
 
-**Escenario: Cool Boy (3 cartas reveladas)**
+**Escenario: Buscador por arquetipo (3 cartas reveladas)**
 
 **Inputs:**
-- Tipo de búsqueda: Cool Boy
+- Tipo de búsqueda: Buscador por arquetipo
 - Total de cartas: 45
 - Digimon X Antibody: 4
 - Options X Antibody: 10

@@ -9,7 +9,7 @@
 // CALCULATOR (Orchestrator Component)
 // ============================================
 .calculator {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--theme-color-bg-base);
   padding: $theme-spacing-4;
   transition: background-color $theme-transition-base;
@@ -36,5 +36,20 @@
       grid-template-columns: 1fr 1fr;
       gap: $theme-spacing-8;
     }
+  }
+
+  // ============================================
+  // FOOTER
+  // ============================================
+  &__footer {
+    padding: $theme-spacing-4 0;
+    text-align: center;
+  }
+
+  &__footer-text {
+    margin: 0;
+    font-size: $theme-font-size-xs;
+    color: var(--theme-color-text-muted);
+    opacity: 0.6;
   }
 }

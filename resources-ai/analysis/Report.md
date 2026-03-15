@@ -8,7 +8,7 @@
 
 ## 📋 Resumen Ejecutivo
 
-La calculadora en Excel implementa cálculos de probabilidad basados en la **distribución hipergeométrica** para determinar las chances de encontrar cartas específicas durante efectos de búsqueda en Digimon TCG. El modelo permite calcular hasta 3 probabilidades simultáneas: Hit tipo 1, Hit tipo 2, y Doble Hit (ambos tipos).
+La calculadora en Excel implementa cálculos de probabilidad basados en la **distribución hipergeométrica** para determinar las chances de encontrar cartas específicas durante efectos de búsqueda en Digimon TCG. El modelo permite calcular hasta 3 probabilidades simultáneas: Hit Tipo 1, Hit Tipo 2, y Doble Hit (ambos tipos).
 
 ---
 
@@ -20,7 +20,7 @@ La calculadora está diseñada con los siguientes campos configurables:
 
 | Celda | Campo | Descripción | Valores |
 |-------|-------|-------------|---------|
-| **B1** | Tipo de búsqueda | Método de búsqueda/revelado de cartas | Dropdown: `Cool Boy`, `Memory Boost`, `Memory Boost Dual`, `Training`, `Elige otro número`, `Robo Natural` |
+| **B1** | Tipo de búsqueda | Método de búsqueda/revelado de cartas | Dropdown: `Buscador por arquetipo`, `Memory Boost`, `Memory Boost Dual`, `Training`, `Elige otro número`, `Robo Natural` |
 | **B2** | Valor personalizado | Número de cartas a revelar (solo si se elige "Elige otro número") | Dropdown: 1-6 |
 | **B3** | Total de cartas en mazo | Cartas totales disponibles al momento de la búsqueda + Securities desconocidas | Valor numérico (ej: 45) |
 | **B4** | Cartas tipo 1 | Número de cartas del primer tipo objetivo en el mazo | Valor numérico (ej: 4) |
@@ -30,7 +30,7 @@ La calculadora está diseñada con los siguientes campos configurables:
 
 | Celda | Campo | Fórmula | Descripción |
 |-------|-------|---------|-------------|
-| **B6** | Cartas reveladas | `=IF(B1="Cool Boy", 3, IF(B1="Memory Boost", 4, IF(B1="Memory Boost Dual", 3, IF(B1="Training", 2, IF(B1="Robo Natural", 1, B2)))))` | Determina automáticamente cuántas cartas se revelan según el tipo de búsqueda |
+| **B6** | Cartas reveladas | `=IF(B1="Buscador por arquetipo", 3, IF(B1="Memory Boost", 4, IF(B1="Memory Boost Dual", 3, IF(B1="Training", 2, IF(B1="Robo Natural", 1, B2)))))` | Determina automáticamente cuántas cartas se revelan según el tipo de búsqueda |
 | **E1** | Total combinaciones | `=COMBIN(B3, B6)` | Calcula C(N,n) - todas las combinaciones posibles de revelar n cartas de N totales |
 | **B8** | Cartas no-objetivo | `=B3 - B4 - B5` | Resto de cartas que no son ninguno de los objetivos |
 
@@ -112,7 +112,7 @@ P(Doble Hit) = 1 - [C(N-K₁,n)/C(N,n)] - [C(N-K₂,n)/C(N,n)] + [C(N-K₁-K₂,
 
 La celda B1 controla el comportamiento de toda la calculadora mediante lógica condicional:
 
-### 1. **Cool Boy** (Revela 3 cartas)
+### 1. **Buscador por arquetipo** (Revela 3 cartas)
 - **Etiqueta B4:** "Número de cartas X Antibody restantes en Deck" (Digimon)
 - **Etiqueta B5:** "Numero de Option con trait X Antibody restantes en Deck"
 - **Cartas reveladas:** 3
@@ -199,7 +199,7 @@ Las celdas A4, A5, A6, A10, A11, A12 contienen fórmulas `IF()` que cambian el t
 ### Caso de Prueba del Archivo Excel
 
 **Configuración:**
-- Tipo: Cool Boy
+- Tipo: Buscador por arquetipo
 - Total cartas (N): 45
 - Digimon con X Antibody (K₁): 4
 - Options con X Antibody (K₂): 10
@@ -239,7 +239,7 @@ P(≥1 de cada) = 1 - 0.7512 - 0.4612 + C(31, 3) / C(45, 3)
 ### En la App Angular:
 
 1. **Agregar preset de tipos de búsqueda del Excel**
-   - Implementar los 6 tipos predefinidos (Cool Boy, Memory Boost, etc.)
+   - Implementar los 6 tipos predefinidos (Buscador por arquetipo, Memory Boost, etc.)
    - Cada uno con sus cartas reveladas automáticas
 
 2. **Cálculo de Doble Hit**

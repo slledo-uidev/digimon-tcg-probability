@@ -34,7 +34,7 @@ describe('CalculatorService', () => {
   });
 
   describe('calculate', () => {
-    it('should match Excel example: Cool Boy with 45 cards, 4 type1, 10 type2', () => {
+    it('should match Excel example: Buscador por arquetipo with 45 cards, 4 type1, 10 type2', () => {
       const result = service.calculate({
         searchType: SearchType.COOL_BOY,
         totalCardsInDeck: 45,

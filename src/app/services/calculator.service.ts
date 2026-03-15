@@ -46,6 +46,10 @@ export class CalculatorService {
     if (input.searchType === SearchType.CUSTOM && input.customValue) {
       return Math.max(1, Math.min(6, input.customValue));
     }
+
+    if (input.searchType === SearchType.ROBO_NATURAL && input.drawCount) {
+      return Math.max(1, input.drawCount);
+    }
     
     return config.cardsRevealed;
   }

@@ -33,6 +33,10 @@ export class CalculatorFormComponent {
     return this.calculatorForm.get('searchType')?.value === SearchType.CUSTOM;
   }
 
+  isRoboNaturalType(): boolean {
+    return this.calculatorForm.get('searchType')?.value === SearchType.ROBO_NATURAL;
+  }
+
   showType2Input(): boolean {
     return this.getCurrentConfig().showType2;
   }
@@ -110,6 +114,9 @@ export class CalculatorFormComponent {
     switch (fieldName) {
       case 'totalCardsInDeck':
         return { min: 1, max: 100 };
+      
+      case 'drawCount':
+        return { min: 1, max: totalCards };
       
       case 'type1Cards':
         return { min: 0, max: totalCards };

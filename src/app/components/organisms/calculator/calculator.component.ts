@@ -44,6 +44,7 @@ export class CalculatorComponent implements OnInit {
     this.calculatorForm = this.fb.group({
       searchType: [SearchType.COOL_BOY, Validators.required],
       customValue: [3],
+      drawCount: [1, [Validators.min(1)]],
       totalCardsInDeck: [45, [Validators.required, Validators.min(1), Validators.max(100)]],
       type1Cards: [4, [Validators.required, Validators.min(0)]],
       type2Cards: [10, [Validators.min(0)]],
@@ -62,7 +63,7 @@ export class CalculatorComponent implements OnInit {
     });
 
     // Forzar recálculo cuando cambien valores si ya hay resultado (SOLO EN DESKTOP)
-    ['customValue', 'totalCardsInDeck', 'type1Cards', 'type2Cards', 'overlap'].forEach(field => {
+    ['customValue', 'drawCount', 'totalCardsInDeck', 'type1Cards', 'type2Cards', 'overlap'].forEach(field => {
       this.calculatorForm.get(field)?.valueChanges.subscribe(() => {
         if (this.result && !this.isMobile) {
           this.calculate();
@@ -120,6 +121,7 @@ export class CalculatorComponent implements OnInit {
       const input: CalculatorInput = {
         searchType: formValue.searchType,
         customValue: formValue.customValue,
+        drawCount: formValue.drawCount,
         totalCardsInDeck: formValue.totalCardsInDeck,
         type1Cards: formValue.type1Cards,
         type2Cards: formValue.type2Cards || 0,
@@ -143,6 +145,7 @@ export class CalculatorComponent implements OnInit {
     this.calculatorForm.reset({
       searchType: SearchType.COOL_BOY,
       customValue: 3,
+      drawCount: 1,
       totalCardsInDeck: 45,
       type1Cards: 4,
       type2Cards: 10,
@@ -160,6 +163,10 @@ export class CalculatorComponent implements OnInit {
 
   isCustomType(): boolean {
     return this.calculatorForm.get('searchType')?.value === SearchType.CUSTOM;
+  }
+
+  isRoboNaturalType(): boolean {
+    return this.calculatorForm.get('searchType')?.value === SearchType.ROBO_NATURAL;
   }
 
   showType2Input(): boolean {
