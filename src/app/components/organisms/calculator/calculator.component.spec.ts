@@ -37,7 +37,7 @@ describe('CalculatorComponent', () => {
 
   it('should calculate result when form is valid', () => {
     component.calculatorForm.patchValue({
-      searchType: 'Cool Boy',
+      searchType: 'Buscador por arquetipo',
       totalCardsInDeck: 45,
       type1Cards: 4,
       type2Cards: 10

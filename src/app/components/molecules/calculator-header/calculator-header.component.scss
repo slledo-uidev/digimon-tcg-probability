@@ -122,15 +122,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 24px;
+    height: 24px;
     animation: toggleFadeIn 0.3s ease-in-out;
 
-    &--sun,
-    &--moon {
-      font-size: $theme-font-size-xl;
-
-      @media (min-width: $theme-breakpoint-md) {
-        font-size: $theme-font-size-2xl;
-      }
+    @media (min-width: $theme-breakpoint-md) {
+      width: 28px;
+      height: 28px;
     }
   }
 }

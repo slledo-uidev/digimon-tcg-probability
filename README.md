@@ -24,7 +24,7 @@
 ## ✨ Características
 
 ### 🎯 Funcionalidad Principal
-- **6 Tipos de Búsqueda Predefinidos**: Cool Boy, Memory Boost, Memory Boost Dual, Training, Robo Natural, y Custom
+- **6 Tipos de Búsqueda Predefinidos**: Buscador por arquetipo, Memory Boost, Memory Boost Dual, Training, Robo Natural, y Custom
 - **Cálculos Exactos**: Implementa las fórmulas del Excel usando distribución hipergeométrica
 - **3 Resultados de Probabilidad**:
   - Hit Tipo 1: Probabilidad de encontrar al menos 1 carta del primer tipo
@@ -45,7 +45,7 @@
 
 ### 🧮 Precisión Matemática
 - **Validado con Excel**: Los resultados coinciden exactamente con la calculadora oficial
-- **Caso de prueba**: Cool Boy con 45 cartas, 4 tipo1, 10 tipo2
+- **Caso de prueba**: Buscador por arquetipo con 45 cartas, 4 tipo1, 10 tipo2
   - Hit Tipo 1: 24.88% ✅
   - Hit Tipo 2: 53.88% ✅
   - Doble Hit: 10.43% ✅
@@ -121,7 +121,7 @@ La aplicación presenta una interfaz limpia dividida en dos secciones principale
 
 ## 🔍 Tipos de Búsqueda
 
-### 1. Cool Boy (3 cartas)
+### 1. Buscador por arquetipo (3 cartas)
 - **Uso**: Buscar Digimon y/o Options con X Antibody
 - **Tipo 1**: Digimon con X Antibody
 - **Tipo 2**: Options con X Antibody
@@ -252,7 +252,7 @@ npm test -- --code-coverage
 
 **Caso de validación principal (Excel):**
 ```typescript
-// Cool Boy: 45 cartas, 4 tipo1, 10 tipo2
+// Buscador por arquetipo: 45 cartas, 4 tipo1, 10 tipo2
 expect(result.hitType1).toBeCloseTo(0.2488, 4);  // 24.88%
 expect(result.hitType2).toBeCloseTo(0.5388, 4);  // 53.88%
 expect(result.doubleHit).toBeCloseTo(0.1043, 4); // 10.43%

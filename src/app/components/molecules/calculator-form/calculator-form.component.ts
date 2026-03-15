@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { SearchType, SearchTypeConfig, SEARCH_TYPE_CONFIGS } from '../../../models/calculator.model';
+import { ChevronDown, ChevronUp, Minus, Plus } from 'lucide-angular';
 
 @Component({
   selector: 'app-calculator-form',
@@ -14,6 +15,11 @@ export class CalculatorFormComponent {
   @Input() searchTypes: SearchType[] = [];
   @Input() customValues: number[] = [];
 
+  readonly chevronDownIcon = ChevronDown;
+  readonly chevronUpIcon = ChevronUp;
+  readonly minusIcon = Minus;
+  readonly plusIcon = Plus;
+
   @Output() calculate = new EventEmitter<void>();
   @Output() reset = new EventEmitter<void>();
   @Output() toggleForm = new EventEmitter<void>();
@@ -25,6 +31,10 @@ export class CalculatorFormComponent {
 
   isCustomType(): boolean {
     return this.calculatorForm.get('searchType')?.value === SearchType.CUSTOM;
+  }
+
+  isRoboNaturalType(): boolean {
+    return this.calculatorForm.get('searchType')?.value === SearchType.ROBO_NATURAL;
   }
 
   showType2Input(): boolean {
@@ -104,6 +114,9 @@ export class CalculatorFormComponent {
     switch (fieldName) {
       case 'totalCardsInDeck':
         return { min: 1, max: 100 };
+      
+      case 'drawCount':
+        return { min: 1, max: totalCards };
       
       case 'type1Cards':
         return { min: 0, max: totalCards };

@@ -10,8 +10,22 @@
       [attr.aria-label]="(isDarkMode$ | async) ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
       type="button"
     >
-      <span class="theme-toggle__icon theme-toggle__icon--sun" *ngIf="!(isDarkMode$ | async)">☀️</span>
-      <span class="theme-toggle__icon theme-toggle__icon--moon" *ngIf="isDarkMode$ | async">🌙</span>
+      <lucide-icon
+        *ngIf="!(isDarkMode$ | async)"
+        class="theme-toggle__icon theme-toggle__icon--sun"
+        [img]="sunIcon"
+        [size]="24"
+        [strokeWidth]="2"
+        aria-hidden="true"
+      ></lucide-icon>
+      <lucide-icon
+        *ngIf="isDarkMode$ | async"
+        class="theme-toggle__icon theme-toggle__icon--moon"
+        [img]="moonIcon"
+        [size]="24"
+        [strokeWidth]="2"
+        aria-hidden="true"
+      ></lucide-icon>
     </button>
   </div>
 </header>

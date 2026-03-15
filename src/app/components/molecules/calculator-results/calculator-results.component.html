@@ -13,7 +13,13 @@
   
   <!-- Estado vacío -->
   <div class="results__empty" *ngIf="!result">
-    <div class="empty__icon">📊</div>
+    <lucide-icon
+      class="empty__icon"
+      [img]="emptyStateIcon"
+      [size]="64"
+      [strokeWidth]="1.75"
+      aria-hidden="true"
+    ></lucide-icon>
     <h3 class="empty__title">Sin resultados aún</h3>
     <p class="empty__text">
       Configura los parámetros a la izquierda y presiona "Calcular Probabilidades" para ver los resultados
@@ -68,10 +74,19 @@
 
     <!-- Información adicional -->
     <div class="results__info">
-      <h4 class="info__title">ℹ️ Interpretación</h4>
+      <h4 class="info__title">
+        <lucide-icon
+          class="info__icon"
+          [img]="infoIcon"
+          [size]="20"
+          [strokeWidth]="2"
+          aria-hidden="true"
+        ></lucide-icon>
+        <span>Interpretación</span>
+      </h4>
       <ul class="info__list">
         <li><strong>Alta probabilidad (>70%):</strong> Muy probable que encuentres la carta</li>
-        <li><strong>Probabilidad media (40-70%):</strong> Chances razonables</li>
+        <li><strong>Probabilidad media (40-70%):</strong> Probabilidad razonable</li>
         <li><strong>Baja probabilidad (<40%):</strong> Poco probable, considera alternativas</li>
       </ul>
     </div>

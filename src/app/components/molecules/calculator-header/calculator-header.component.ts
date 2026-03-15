@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ThemeService } from '../../../services/theme.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Moon, Sun } from 'lucide-angular';
 
 @Component({
   selector: 'app-calculator-header',
@@ -11,6 +12,9 @@ import { map } from 'rxjs/operators';
 export class CalculatorHeaderComponent {
   @Input() title: string = 'Calculadora de Probabilidades - Digimon TCG';
   @Input() description: string = 'Calcula las probabilidades de revelar cartas específicas en tu mazo de Digimon TCG';
+
+  readonly sunIcon = Sun;
+  readonly moonIcon = Moon;
   
   isDarkMode$: Observable<boolean>;
 
