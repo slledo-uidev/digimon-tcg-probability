@@ -1,7 +1,7 @@
 # Netlify configuration for Angular application
 [build]
   publish = "dist/digimon-tcg-probability"
-  command = "npm run build:prod"
+  command = "rm -f .npmrc && npm cache clean --force && npm run build:prod"
 
 # Redirect all requests to index.html for Angular routing
 [[redirects]]
