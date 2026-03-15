@@ -54,7 +54,7 @@
 
   &__info {
     background: rgba(52, 152, 219, 0.05);
-    border: 2px dashed var(--theme-color-primary);
+    border: 2px solid var(--theme-color-primary);
     border-radius: $theme-radius-lg;
     padding: $theme-spacing-6;
   }
@@ -62,7 +62,8 @@
 
 .empty {
   &__icon {
-    font-size: $theme-font-size-6xl;
+    width: 64px;
+    height: 64px;
     margin-bottom: $theme-spacing-4;
     opacity: $theme-opacity-50;
   }
@@ -111,9 +112,19 @@
 
 .info {
   &__title {
+    display: flex;
+    align-items: center;
+    gap: $theme-spacing-2;
     font-size: $theme-font-size-lg;
     color: var(--theme-color-text-primary);
     margin: 0 0 $theme-spacing-4 0;
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    color: var(--theme-color-primary);
+    flex-shrink: 0;
   }
 
   &__list {

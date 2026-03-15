@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CalculatorResultsComponent } from './calculator-results.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChartNoAxesColumn, Info, LucideAngularModule } from 'lucide-angular';
 
 describe('CalculatorResultsComponent', () => {
   let component: CalculatorResultsComponent;
@@ -7,7 +9,14 @@ describe('CalculatorResultsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CalculatorResultsComponent ]
+      declarations: [ CalculatorResultsComponent ],
+      imports: [
+        LucideAngularModule.pick({
+          ChartNoAxesColumn,
+          Info
+        })
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

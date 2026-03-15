@@ -1,6 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  LucideAngularModule,
+  Sun,
+  Moon,
+  ChevronDown,
+  ChevronRight,
+  Plus,
+  Minus,
+  ChartNoAxesColumn,
+  Info
+} from 'lucide-angular';
 
 import { AppComponent } from './app.component';
 import { CalculatorComponent } from './components/organisms/calculator/calculator.component';
@@ -21,7 +32,17 @@ import { ResultCardComponent } from './components/molecules/result-card/result-c
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LucideAngularModule.pick({
+      Sun,
+      Moon,
+      ChevronDown,
+      ChevronRight,
+      Plus,
+      Minus,
+      ChartNoAxesColumn,
+      Info
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

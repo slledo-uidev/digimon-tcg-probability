@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { SearchType, SearchTypeConfig, SEARCH_TYPE_CONFIGS } from '../../../models/calculator.model';
+import { ChevronDown, ChevronUp, Minus, Plus } from 'lucide-angular';
 
 @Component({
   selector: 'app-calculator-form',
@@ -13,6 +14,11 @@ export class CalculatorFormComponent {
   @Input() isFormExpanded: boolean = true;
   @Input() searchTypes: SearchType[] = [];
   @Input() customValues: number[] = [];
+
+  readonly chevronDownIcon = ChevronDown;
+  readonly chevronUpIcon = ChevronUp;
+  readonly minusIcon = Minus;
+  readonly plusIcon = Plus;
 
   @Output() calculate = new EventEmitter<void>();
   @Output() reset = new EventEmitter<void>();
